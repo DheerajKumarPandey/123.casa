@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_backkk">
+<ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:id="@+id/img_btn_cross"
+    android:layout_margin="@dimen/dim_8"
+    android:src="@drawable/cross_icon"
+    android:layout_alignParentRight="true"
+    />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dim_50"
+        android:background="@null"
+        android:src="@drawable/sign_up_text" />
+
+    <LinearLayout
+        android:id="@+id/lnr_signup_selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="@dimen/dim_20"
+        android:orientation="horizontal">
+<!--
+        <ImageButton
+            android:id="@+id/img_btn_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/user" />
+
+        <ImageButton
+            android:id="@+id/img_btn_agent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/agent_icon" />
+
+        <ImageButton
+            android:id="@+id/img_btn_seller_buyer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/seller_buyer" />-->
+        <include
+            layout="@layout/singnup_options"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/proceed_button"
+        android:layout_below="@id/lnr_signup_selection"
+        android:layout_marginTop="@dimen/dim_160"
+        android:text="Proceed"
+        android:id="@+id/tv_btn_proceed"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:paddingTop="@dimen/dim_5"
+        android:paddingBottom="@dimen/dim_5"
+        android:paddingLeft="@dimen/dim_15"
+        android:paddingRight="@dimen/dim_15"
+        android:textSize="@dimen/dim_16"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

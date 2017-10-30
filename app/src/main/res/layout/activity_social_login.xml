@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    android:padding="@dimen/dim_10"
+    tools:context="com.a123.SocialLoginActivity">
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:id="@+id/img_logo"
+    android:layout_marginTop="@dimen/dim_10"
+    android:layout_centerHorizontal="true"
+    android:src="@drawable/logo_name"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_logo"
+        android:id="@+id/tv_app_moto"
+        android:layout_centerHorizontal="true"
+        android:text="Do you want to sell or rent a property?"
+        android:textSize="@dimen/dim_20"
+        android:layout_marginTop="@dimen/dim_10"
+        android:fontFamily="cursive"
+        android:textColor="@color/green_text"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/tv_app_moto"
+        android:paddingTop="@dimen/dim_50"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dim_10"
+            android:text="CONTINUE WITH FACEBOOK"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_btn_fb_signup"
+            android:textSize="@dimen/dim_18"
+            android:textStyle="bold"
+            android:drawablePadding="@dimen/dim_10"
+            android:drawableLeft="@drawable/facebook_icon"
+            android:background="@color/fb_blue"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dim_10"
+            android:text="CONTINUE WITH GOOGLE+"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_btn_gmail_signup"
+            android:layout_marginTop="@dimen/dim_15"
+            android:textSize="@dimen/dim_18"
+            android:textStyle="bold"
+            android:drawablePadding="@dimen/dim_10"
+            android:drawableLeft="@drawable/google_plus"
+            android:background="@color/google_red"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dim_10"
+            android:text="SIGN UP WITH EMAIL"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_btn_email_signup"
+            android:layout_marginTop="@dimen/dim_15"
+            android:textSize="@dimen/dim_18"
+            android:textStyle="bold"
+            android:drawablePadding="@dimen/dim_10"
+            android:drawableLeft="@drawable/mail_icon"
+            android:background="@color/email_blue"/>
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/transparent_image"
+        android:text="Already have an account ? Sign in"
+        android:id="@+id/tv_already_acc"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_18"
+        android:gravity="center"
+        />
+</RelativeLayout>

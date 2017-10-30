@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:id="@+id/lnr_user"
+    android:orientation="vertical">
+    <ImageButton
+        android:id="@+id/img_btn_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/image_buttong_bg"
+        android:foregroundGravity="center"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/user" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="User"
+        android:id="@+id/tv_user"
+        android:textColor="@color/google_red"
+        android:textSize="@dimen/dim_16"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/lnr_agent"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/img_btn_agent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:foregroundGravity="center"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/agent_icon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Agent"
+            android:id="@+id/tv_agent"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/dim_16"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/lnr_seller_buyer"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/img_btn_seller_buyer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:foregroundGravity="center"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/seller_buyer" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Seller/Buyer"
+            android:id="@+id/tv_seller_buyer"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/dim_16"
+            />
+    </LinearLayout>
+
+</LinearLayout>

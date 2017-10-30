@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#C03828</color>
+    <color name="colorPrimaryDark">#C03828</color>
+    <color name="colorAccent">#000000</color>
+    <color name="text_color_volet">#3949AB</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="pink">#ED365B</color>
+    <color name="blue">#3949AB</color>
+    <color name="green_text">#4caf50</color>
+    <color name="fb_blue">#3B5A99</color>
+    <color name="google_red">#C03828</color>
+    <color name="email_blue">#1D76D2</color>
+    <color name="text_grey">#535251</color>
+
+
+</resources>
