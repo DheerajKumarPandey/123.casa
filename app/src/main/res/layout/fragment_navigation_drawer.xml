@@ -99,7 +99,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/nav_item_service_request"
+                        android:id="@+id/nav_item_home"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -114,11 +114,10 @@
     android:layout_height="@dimen/dim_1"
     android:background="#424242"/>
                     <TextView
-                        android:id="@+id/nav_item_scheduled"
+                        android:id="@+id/nav_item_map_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
-
                         android:drawablePadding="@dimen/dim_10"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dim_10"
@@ -131,7 +130,7 @@
                         android:background="#424242"/>
                     <RelativeLayout
 
-                        android:id="@+id/nav_item_chats"
+                        android:id="@+id/nav_item_view_listing"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -168,7 +167,7 @@
                         android:layout_height="@dimen/dim_1"
                         android:background="#424242"/>
                     <RelativeLayout
-                        android:id="@+id/nav_item_notification"
+                        android:id="@+id/nav_item_fav"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -205,7 +204,7 @@
                         android:layout_height="@dimen/dim_1"
                         android:background="#424242"/>
                     <RelativeLayout
-                        android:id="@+id/nav_item_wallet"
+                        android:id="@+id/nav_item_share"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -242,7 +241,7 @@
                         android:layout_height="@dimen/dim_1"
                         android:background="#424242"/>
                     <TextView
-                        android:id="@+id/nav_item_promo_offer"
+                        android:id="@+id/nav_item_visited"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -257,7 +256,7 @@
                         android:layout_height="@dimen/dim_1"
                         android:background="#424242"/>
                     <TextView
-                        android:id="@+id/nav_item_fav"
+                        android:id="@+id/nav_item_notification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
@@ -287,7 +286,7 @@
                         android:layout_height="@dimen/dim_1"
                         android:background="#424242"/>
                     <TextView
-                        android:id="@+id/nav_item_invite_friends"
+                        android:id="@+id/nav_item_logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"

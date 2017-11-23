@@ -22,9 +22,11 @@ import android.widget.TextView;
 
 
 import com.a123.ChangePasswordActivity;
+import com.a123.NotificationActivity;
 import com.a123.R;
 import com.a123.UpdateProfileActivity;
 import com.a123.adapter.NavigationDrawerAdapter;
+import com.a123.application.MyApp;
 
 
 import java.util.ArrayList;
@@ -43,22 +45,21 @@ public class FragmentDrawer extends Fragment {
     private View containerView;
     private static String[] titles = null;
     private FragmentDrawerListener drawerListener;
-    private TextView profile_name;
-    private TextView nav_item_switch_profile;
-    private TextView nav_item_scheduled;
-    //private TextView nav_item_customer_support;
-    private TextView nav_item_invite_friends;
-    private TextView nav_item_promo_offer;
-    private TextView nav_item_fav;
-    private TextView nav_item_service_request;
-    private TextView nav_item_change_password;
-    private RelativeLayout rl_profile;
-    private RelativeLayout nav_item_chats;
-    private RelativeLayout nav_item_notification;
-    private RelativeLayout nav_item_wallet;
-    private LinearLayout ll_menu;
-    private ImageView img_profile;
+    private TextView tv_email;
+    private TextView tv_name;
     private ImageButton img_btn_edit;
+
+    private TextView nav_item_home;
+    private TextView nav_item_map_search;
+    private RelativeLayout nav_item_view_listing;
+    private RelativeLayout nav_item_fav;
+    private RelativeLayout nav_item_share;
+    private TextView nav_item_visited;
+    private TextView nav_item_notification;
+    private TextView nav_item_change_password;
+    private TextView nav_item_logout;
+
+
 
     public FragmentDrawer() {
 
@@ -102,32 +103,87 @@ public class FragmentDrawer extends Fragment {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer,
                 container, false);
+
         //  recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-        profile_name = (TextView) layout.findViewById(R.id.profile_name);
+
 
      //   profile_name.setText(MyApp.getApplication().readUser().getName());
 
+        tv_email=(TextView)layout.findViewById(R.id.tv_email);
+        tv_email.setText(MyApp.getApplication().readUser().getInfo().get(0).getEmail());
+        tv_name=(TextView)layout.findViewById(R.id.tv_name) ;
+        tv_name.setText(MyApp.getApplication().readUser().getInfo().get(0).getName());
+        img_btn_edit=(ImageButton)layout.findViewById(R.id.img_btn_edit);
+
+        nav_item_home=(TextView)layout.findViewById(R.id.nav_item_home);
+        nav_item_map_search=(TextView)layout.findViewById(R.id.nav_item_map_search);
+        nav_item_view_listing=(RelativeLayout)layout.findViewById(R.id.nav_item_view_listing);
+        nav_item_fav=(RelativeLayout)layout.findViewById(R.id.nav_item_fav);
+        nav_item_share=(RelativeLayout)layout.findViewById(R.id.nav_item_share);
+        nav_item_visited=(TextView)layout.findViewById(R.id.nav_item_visited);
+        nav_item_notification=(TextView)layout.findViewById(R.id.nav_item_notification);
         nav_item_change_password=(TextView)layout.findViewById(R.id.nav_item_change_password);
+        nav_item_logout=(TextView)layout.findViewById(R.id.nav_item_logout);
 
-        nav_item_scheduled = (TextView) layout.findViewById(R.id.nav_item_scheduled);
-        nav_item_invite_friends = (TextView) layout.findViewById(R.id.nav_item_invite_friends);
-        nav_item_fav = (TextView) layout.findViewById(R.id.nav_item_fav);
-        //nav_item_switch_profile = (TextView) layout.findViewById(R.id.nav_item_switch_profile);
-        nav_item_promo_offer = (TextView) layout.findViewById(R.id.nav_item_promo_offer);
-        nav_item_service_request = (TextView) layout.findViewById(R.id.nav_item_service_request);
-        ll_menu = (LinearLayout) layout.findViewById(R.id.ll_menu);
-        nav_item_chats = (RelativeLayout) layout.findViewById(R.id.nav_item_chats);
-        rl_profile = (RelativeLayout) layout.findViewById(R.id.rl_profile);
-        nav_item_notification = (RelativeLayout) layout.findViewById(R.id.nav_item_notification);
-        nav_item_wallet = (RelativeLayout) layout.findViewById(R.id.nav_item_wallet);
+        nav_item_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        img_profile = (ImageView) layout.findViewById(R.id.img_profile);
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) img_profile.getLayoutParams();
-        if (Build.VERSION.SDK_INT >= 21) {
-            lp.setMargins(0, getStatusBarHeight() + 5, 0, 0);
-        } else {
-            lp.setMargins(0, getStatusBarHeight(), 0, 0);
-        }
+            }
+        });
+
+        nav_item_map_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        nav_item_view_listing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        nav_item_fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        nav_item_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        nav_item_visited.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        nav_item_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
+
+            }
+        });
+        nav_item_change_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+            }
+        });
+        nav_item_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finishAffinity();
+            }
+        });
        /* Picasso.with(getContext()).load(MyApp.getApplication().readUser().getProfilepic()).into(img_profile);
         rl_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,7 +273,7 @@ public class FragmentDrawer extends Fragment {
             }
         });*/
 
-        img_btn_edit=(ImageButton)layout.findViewById(R.id.img_btn_edit);
+
         img_btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
