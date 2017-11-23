@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    android:orientation="vertical"
+    tools:context="com.a123.HelpActivity">
+
+    <include layout="@layout/new_toolbar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dim_5"
+        android:gravity="center"
+        android:text="Can't find what you are looking for? Describe it and we will find for you"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dim_15" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_5"
+        android:background="@drawable/grey_rect_edt_bg"
+        android:hint="Buy or Rent ?"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10"
+        android:textSize="@dimen/dim_16" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_5"
+        android:background="@drawable/grey_rect_edt_bg"
+        android:hint="Type of property"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10"
+        android:textSize="@dimen/dim_16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_5"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:hint="Min Price"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:hint="Max Price"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_5"
+        android:background="@drawable/grey_rect_edt_bg"
+        android:hint="Location"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10"
+        android:textSize="@dimen/dim_16" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_5"
+        android:text="Description : "
+        android:textColor="@color/black"
+        android:textSize="@dimen/dim_16" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim_100"
+
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:background="@drawable/grey_rect_edt_bg"
+        android:gravity="left|top"
+        android:inputType="textMultiLine"
+        android:maxHeight="@dimen/dim_100"
+        android:maxLines="5"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10"
+        android:textSize="@dimen/dim_16" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim_25"
+        android:background="@drawable/proceed_button"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_5"
+        android:paddingRight="@dimen/dim_5"
+        android:paddingTop="@dimen/dim_10"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_18" />
+</LinearLayout>

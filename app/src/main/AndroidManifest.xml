@@ -41,16 +41,24 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDwvTIZfxxEoM_2vu3eVDncq5FTraI43ec" />
 
-        <activity android:name=".SocialLoginActivity"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".SignUpActivity"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".ForgetPasswordActivity"
-            android:screenOrientation="sensorPortrait"></activity>
-
-
+        <activity
+            android:name=".SocialLoginActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".FilterActivity" />
+        <activity android:name=".OpenHouseActivity" />
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".UpdateProfileActivity"></activity>
     </application>
 
 </manifest>

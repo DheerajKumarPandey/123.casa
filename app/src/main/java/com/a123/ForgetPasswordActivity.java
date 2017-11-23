@@ -1,8 +1,10 @@
 package com.a123;
 
 import android.content.Context;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,11 +17,21 @@ import com.a123.custome.CustomActivity;
 public class ForgetPasswordActivity extends CustomActivity {
     private TextView tv_btn_submit;
     private EditText edt_email;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView mTitle =(TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("");
+        actionBar.setTitle("");
         setupUiElement();
     }
 

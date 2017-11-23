@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/dim_10"
+
     android:background="@drawable/login"
     tools:context="com.a123.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include layout="@layout/toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dim_12"
+        android:paddingRight="@dimen/dim_12"
+        android:orientation="vertical">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,13 +42,17 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPersonName"
             android:maxLines="1"
-            android:backgroundTint="@color/colorAccent"
+
+            android:backgroundTint="#BAD4F2"
             android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="#3584D7" />
 
 
     </android.support.design.widget.TextInputLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,14 +67,24 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:drawableRight="@drawable/eye_hidden"
             android:singleLine="true"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="#BAD4F2"
             android:textColor="@color/black"
             android:textColorHint="#3584D7" />
 
 
     </android.support.design.widget.TextInputLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:id="@+id/img_btn_show_hide"
+                android:src="@drawable/eye_open"
+                android:layout_margin="@dimen/dim_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -67,19 +93,23 @@
         android:background="@drawable/sign_up_button"
         android:text="Sign In"
         android:id="@+id/tv_btn_signin"
-        android:layout_marginTop="@dimen/dim_50"
+        android:layout_marginTop="@dimen/dim_55"
         android:gravity="center"
         android:textSize="@dimen/dim_20"
         android:textColor="@color/white"
         android:padding="@dimen/dim_10"
         />
+    </LinearLayout>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forget Password"
         android:id="@+id/tv_forget_password"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:textSize="@dimen/dim_18"
+        android:layout_marginBottom="@dimen/dim_15"
         android:textColor="@color/google_red"
-        android:layout_marginTop="@dimen/dim_20"/>
-</LinearLayout>
+       />
+</RelativeLayout>

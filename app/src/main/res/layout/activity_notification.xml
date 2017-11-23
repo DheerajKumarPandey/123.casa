@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.a123.NotificationActivity">
+    <include
+        layout="@layout/new_toolbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:id="@+id/img_notification"
+            android:src="@drawable/ic_notifications_none"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_notification"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_18"
+            android:text="No notification to show as if now"
+            android:textColor="@color/black"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

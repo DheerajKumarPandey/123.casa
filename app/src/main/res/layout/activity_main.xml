@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:theme="@style/AppTheme">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,12 +22,21 @@
             android:layout_height="match_parent"
             android:background="#DEE4F1">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               android:visibility="gone"
+                android:layout_above="@+id/bottom_lnr"
+                android:layout_below="@+id/news_section" />
 
             <FrameLayout
+                android:id="@+id/map_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/bottom_lnr"
-                android:layout_below="@+id/news_section">
+                android:layout_below="@+id/news_section"
+                >
 
 
                 <fragment
@@ -37,15 +46,15 @@
                     android:layout_height="match_parent"
                     tools:context="com.a123.MainActivity" />
 
+                <ImageView
+                    android:id="@+id/_map_marker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/location" />
 
             </FrameLayout>
 
-            <ImageView
-                android:id="@+id/_map_marker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/location" />
 
             <RelativeLayout
                 android:id="@+id/rl_top"
@@ -72,6 +81,17 @@
                     android:src="@drawable/logo_small" />
 
                 <ImageButton
+                    android:id="@+id/img_btn_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:layout_toLeftOf="@+id/btn_search"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/dim_5"
+                    android:src="@drawable/ic_notifications_none" />
+
+                <ImageButton
                     android:id="@+id/btn_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,7 +99,7 @@
                     android:layout_centerVertical="true"
                     android:background="?selectableItemBackground"
                     android:padding="@dimen/dim_5"
-                    android:src="@drawable/ic_camera" />
+                    android:src="@drawable/ic_view_list" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -95,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/tv_white_rect_bg"
+                    android:drawableRight="@drawable/ic_my_location"
                     android:gravity="center"
                     android:hint="Enter Location"
                     android:padding="@dimen/dim_5"
@@ -137,6 +158,7 @@
                     android:paddingTop="@dimen/dim_5">
 
                     <TextView
+                        android:id="@+id/tv_filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -147,6 +169,7 @@
                         android:textSize="@dimen/dim_16" />
 
                     <TextView
+                        android:id="@+id/tv_show_open_house"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -167,8 +190,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/dim_10"
-                    >
+                    android:paddingLeft="@dimen/dim_10">
 
                     <TextView
                         android:id="@+id/tv_checkbox"
@@ -180,14 +202,12 @@
                         android:textSize="@dimen/dim_16" />
 
                     <CheckBox
+                        android:id="@+id/chek_box_appointment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/tv_checkbox"
-                        android:textSize="@dimen/dim_16"
-                        android:checked="true"
-
-
-                        />
+                        android:buttonTint="@color/black"
+                        android:textSize="@dimen/dim_16" />
                 </RelativeLayout>
 
                 <View
@@ -199,8 +219,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dim_5"
-                    android:paddingLeft="@dimen/dim_10"
-                    >
+                    android:paddingLeft="@dimen/dim_10">
 
                     <TextView
                         android:id="@+id/tv_select_type"
@@ -270,17 +289,19 @@
                     android:paddingRight="@dimen/dim_10">
 
                     <TextView
+                        android:id="@+id/tv_help"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:drawablePadding="@dimen/dim_5"
                         android:drawableRight="@drawable/ic_help_black"
                         android:gravity="center"
-                        android:text="Filter"
+                        android:text="Help"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_16" />
 
                     <TextView
+                        android:id="@+id/tv_chat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

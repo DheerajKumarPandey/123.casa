@@ -9,163 +9,156 @@ import java.util.List;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 12456541L;
-    private String id = "";
-    private String name;
-    private String email;
-    private String phone;
-    private String company;
-    private String address;
-    private String isServicemen;
-    private String isEmailVerified;
-    private String isphoneVerified;
-    private String docs1;
-    private String docs2;
-    private String profilepic;
-    private String currentlat;
-    private String currentlong;
-    private String active;
-    private String device_token;
-//    private List<Country> country;
-    private List<Location> location;
 
-//    public void setCountry(List<Country> country) {
-//        this.country = country;
-//    }
-
-    public List<Location> getLocation() {
-        return location;
+    public String getStatus() {
+        return status;
     }
 
-    public void setLocation(List<Location> location) {
-        this.location = location;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getId() {
-        return id;
+    public String getMessage() {
+        return message;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public List<Info> getInfo() {
+        return info;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInfo(List<Info> info) {
+        this.info = info;
     }
 
-    public String getEmail() {
-        return email;
+    private String status;
+    private String message;
+    private List<Info> info;
+
+    public class Info implements Serializable {
+        private static final long serialVersionUID = 12456541L;
+        private String id;
+        private String name;
+        private String email;
+        private String password;
+        private String phoneno;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getPhoneno() {
+            return phoneno;
+        }
+
+        public void setPhoneno(String phoneno) {
+            this.phoneno = phoneno;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getLoginType() {
+            return loginType;
+        }
+
+        public void setLoginType(String loginType) {
+            this.loginType = loginType;
+        }
+
+        public String getSocialLoginType() {
+            return socialLoginType;
+        }
+
+        public void setSocialLoginType(String socialLoginType) {
+            this.socialLoginType = socialLoginType;
+        }
+
+        public String getAppVersion() {
+            return appVersion;
+        }
+
+        public void setAppVersion(String appVersion) {
+            this.appVersion = appVersion;
+        }
+
+        public String getDeviceType() {
+            return deviceType;
+        }
+
+        public void setDeviceType(String deviceType) {
+            this.deviceType = deviceType;
+        }
+
+        public String getDeviceToken() {
+            return deviceToken;
+        }
+
+        public void setDeviceToken(String deviceToken) {
+            this.deviceToken = deviceToken;
+        }
+
+        public String getCreated_at() {
+            return created_at;
+        }
+
+        public void setCreated_at(String created_at) {
+            this.created_at = created_at;
+        }
+
+        public String getUpdated_at() {
+            return updated_at;
+        }
+
+        public void setUpdated_at(String updated_at) {
+            this.updated_at = updated_at;
+        }
+
+        private String address;
+        private String loginType;
+        private String socialLoginType;
+        private String appVersion;
+        private String deviceType;
+        private String deviceToken;
+        private String created_at;
+        private String updated_at;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getIsServicemen() {
-        return isServicemen;
-    }
-
-    public void setIsServicemen(String isServicemen) {
-        this.isServicemen = isServicemen;
-    }
-
-    public String getIsEmailVerified() {
-        return isEmailVerified;
-    }
-
-    public void setIsEmailVerified(String isEmailVerified) {
-        this.isEmailVerified = isEmailVerified;
-    }
-
-    public String getIsphoneVerified() {
-        return isphoneVerified;
-    }
-
-    public void setIsphoneVerified(String isphoneVerified) {
-        this.isphoneVerified = isphoneVerified;
-    }
-
-    public String getDocs1() {
-        return docs1;
-    }
-
-    public void setDocs1(String docs1) {
-        this.docs1 = docs1;
-    }
-
-    public String getDocs2() {
-        return docs2;
-    }
-
-    public void setDocs2(String docs2) {
-        this.docs2 = docs2;
-    }
-
-    public String getProfilepic() {
-        return profilepic;
-    }
-
-    public void setProfilepic(String profilepic) {
-        this.profilepic = profilepic;
-    }
-
-    public String getCurrentlat() {
-        return currentlat;
-    }
-
-    public void setCurrentlat(String currentlat) {
-        this.currentlat = currentlat;
-    }
-
-    public String getCurrentlong() {
-        return currentlong;
-    }
-
-    public void setCurrentlong(String currentlong) {
-        this.currentlong = currentlong;
-    }
-
-    public String getActive() {
-        return active;
-    }
-
-    public void setActive(String active) {
-        this.active = active;
-    }
-
-    public String getDevice_token() {
-        return device_token;
-    }
-
-    public void setDevice_token(String device_token) {
-        this.device_token = device_token;
-    }
 
 }

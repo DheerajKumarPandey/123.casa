@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:background="@drawable/login"
+    tools:context="com.a123.FilterActivity">
+    <include
+        layout="@layout/new_toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/new_toolbar"
+        android:layout_above="@+id/tv_apply"
+        android:padding="@dimen/dim_15"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:hint="Buy or Rent ?"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:hint="Buy or Rent ?"
+            android:layout_marginTop="@dimen/dim_10"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_10"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="Min Price"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_5"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="Max Price"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_5"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dim_10"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="Location"
+                android:id="@+id/edt_location"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/dim_10"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_weight=".15"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_my_location"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tv_apply"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/gradient_red"
+    android:paddingTop="@dimen/dim_10"
+    android:paddingBottom="@dimen/dim_10"
+    android:text="Apply"
+    android:textColor="@color/white"
+    android:gravity="center"
+    android:textSize="@dimen/dim_18"
+    android:textStyle="bold"
+    />
+</RelativeLayout>

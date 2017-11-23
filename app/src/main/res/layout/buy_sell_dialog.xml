@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dim_150"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:id="@+id/diag_btn_buy"
+        android:text="BUY"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_16"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:background="#D03736"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dim_1"
+        android:background="@color/white"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="SELL"
+        android:id="@+id/diag_btn_sell"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_16"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:background="#D03736"/>
+</LinearLayout>

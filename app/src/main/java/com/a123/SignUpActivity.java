@@ -3,10 +3,13 @@ package com.a123;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -22,11 +25,23 @@ import static java.sql.Types.NULL;
 public class SignUpActivity extends CustomActivity {
     private TextView tv_signup_as, tv_btn_signup;
     private EditText edt_name, edt_email,edt_password, edt_dob, edt_phone, edt_address;
+    private Toolbar toolbar;
+    private ImageButton img_btn_show_hide;
+    private boolean showPassword = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView mTitle =(TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setText("");
+        actionBar.setTitle("");
         setupUiElement();
 
     }
@@ -35,8 +50,9 @@ public class SignUpActivity extends CustomActivity {
 
         setTouchNClick(R.id.tv_signup_as);
         setTouchNClick(R.id.tv_btn_signup);
+        setTouchNClick(R.id.img_btn_show_hide);
 
-
+        img_btn_show_hide=(ImageButton)findViewById(R.id.img_btn_show_hide);
         tv_signup_as = (TextView) findViewById(R.id.tv_signup_as);
         tv_btn_signup = (TextView) findViewById(R.id.tv_btn_signup);
         tv_btn_signup.setVisibility(View.GONE);
@@ -81,6 +97,17 @@ public class SignUpActivity extends CustomActivity {
         } else if (v.getId() == R.id.tv_btn_signup) {
             Toast.makeText(getContext(), "Successfully Signed Up", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getContext(), LoginActivity.class));
+
+        } else if (v.getId() == R.id.img_btn_show_hide) {
+            if (showPassword == false) {
+                img_btn_show_hide.setImageResource(R.drawable.eye_hidden);
+                edt_password.setTransformationMethod(null);
+                showPassword = true;
+            } else {
+                img_btn_show_hide.setImageResource(R.drawable.eye_open);
+                edt_password.setTransformationMethod(new PasswordTransformationMethod());
+                showPassword = false;
+            }
 
         }
 
@@ -174,6 +201,7 @@ public class SignUpActivity extends CustomActivity {
                 } else if (img_btn_seller_buyer.isSelected()) {
                     Toast.makeText(getContext(), "Seller and Buyer", Toast.LENGTH_SHORT).show();
                 }
+                dialog.dismiss();
             }
         });
 

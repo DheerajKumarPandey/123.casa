@@ -22,6 +22,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,12 +32,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a123.adapter.DummyHotelData;
+import com.a123.adapter.HotelListAdapter;
 import com.a123.application.MyApp;
 import com.a123.application.SingleInstance;
 import com.a123.custome.CustomActivity;
@@ -70,6 +78,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static java.security.AccessController.getContext;
+import static java.sql.Types.NULL;
 
 public class MainActivity extends CustomActivity implements FragmentDrawer.FragmentDrawerListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -81,15 +90,21 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
     private LocationProvider locationProvider;
     private FragmentDrawer drawerFragment;
     private TextView txt_location;
-  //  private TextView txt_address;
+    private TextView tv_filter, tv_show_open_house, tv_select_type, tv_select_subtype, tv_help, tv_chat;
+    private CheckBox chek_box_appointment;
+    //  private TextView txt_address;
+    private FrameLayout map_view;
     private GoogleMap mMap;
     private DrawerLayout drawer;
     private SupportMapFragment mapFragment;
+    private RecyclerView recycler_list_view;
+    private ArrayList listdata;
+    private HotelListAdapter adapter;
     protected GoogleApiClient mGoogleApiClient;
     protected static final String TAG = "MainActivity";
     private TextView Tv_search, Tv_service, Tv_notification, Tv_account;
-    private ImageButton navBtn, btn_search;
-
+    private ImageButton navBtn, btn_search, img_btn_notification;
+    int count= 0;
     FloatingActionButton Show_all, Domestic, Construction, Events;
     String[] SpinnerText = {"Wallet", "Cash"};
     // int SpinnerIcons[] = {R.drawable.wallet_white, R.drawable.cash_white};
@@ -97,6 +112,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
     private TextView tv_book_now;
 
     private static final int CAMERA_PIC_REQUEST = 1337;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +130,12 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
             lp.setMargins(0, getStatusBarHeight(), 0, -getStatusBarHeight());
 //            v.setPadding(getStatusBarHeight(), getStatusBarHeight(), getStatusBarHeight(), 0);
         }*/
+        map_view=(FrameLayout)findViewById(R.id.map_view);
+        recycler_list_view=(RecyclerView)findViewById(R.id.recycler_list_view);
+        listdata = (ArrayList) DummyHotelData.getListData();
+        recycler_list_view.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new HotelListAdapter(listdata, this);
+        recycler_list_view.setAdapter(adapter);
         txt_location = (TextView) findViewById(R.id.txt_location);
         setupUiElements();
         locationProvider = new LocationProvider(this, this, this);
@@ -335,9 +357,34 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         if (v == navBtn) {
             drawer.openDrawer(GravityCompat.START);
 
-        }else if(v == btn_search ){
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent,CAMERA_PIC_REQUEST);
+        } else if (v == btn_search) {
+            if(count== 0) {
+                count = 1;
+                map_view.setVisibility(View.GONE);
+                btn_search.setImageResource(R.drawable.ic_map);
+                recycler_list_view.setVisibility(View.VISIBLE);
+            }
+            else {
+                count=0;
+                btn_search.setImageResource(R.drawable.ic_view_list);
+                map_view.setVisibility(View.VISIBLE);
+                recycler_list_view.setVisibility(View.GONE);
+            }
+        }else if(v == tv_select_type){
+            typeSelection();
+
+        }else if(v ==tv_select_subtype){
+            subtypeSelection();
+        }else if(v== img_btn_notification){
+            startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+        }else if(v== tv_help){
+
+            startActivity(new Intent(MainActivity.this, HelpActivity.class));
+
+        }else if(v == tv_filter){
+            startActivity(new Intent(MainActivity.this, FilterActivity.class));
+        }else if(v == tv_show_open_house){
+            startActivity(new Intent( MainActivity.this, OpenHouseActivity.class));
         }
     }
 
@@ -370,13 +417,87 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
 
         navBtn = (ImageButton) findViewById(R.id.nav_drawer_btn);
         btn_search = (ImageButton) findViewById(R.id.btn_search);
+        img_btn_notification = (ImageButton) findViewById(R.id.img_btn_notification);
+
+
+        tv_filter = (TextView) findViewById(R.id.tv_filter);
+        tv_show_open_house = (TextView) findViewById(R.id.tv_show_open_house);
+        tv_select_type = (TextView) findViewById(R.id.tv_select_type);
+        tv_select_subtype = (TextView) findViewById(R.id.tv_select_subtype);
+        tv_help = (TextView) findViewById(R.id.tv_help);
+        tv_chat = (TextView) findViewById(R.id.tv_chat);
+
+        chek_box_appointment = (CheckBox) findViewById(R.id.chek_box_appointment);
 
 
         setClick(R.id.nav_drawer_btn);
         setClick(R.id.btn_search);
+        setClick(R.id.img_btn_notification);
+
+        setClick(R.id.tv_filter);
+        setClick(R.id.tv_show_open_house);
+        setClick(R.id.tv_select_type);
+        setClick(R.id.tv_select_subtype);
+        setClick(R.id.tv_help);
+        setClick(R.id.tv_chat);
 
 
+    }
 
+  /*  public void onClick(View v) {
+        super.onClick(v);
+        if (v.getId() == R.id.tv_select_type) {
+            typeSelection();
+        }
+
+    }*/
+
+    private void typeSelection() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.buy_sell_dialog);
+        Button diag_btn_buy = (Button) dialog.findViewById(R.id.diag_btn_buy);
+        Button diag_btn_sell = (Button) dialog.findViewById(R.id.diag_btn_sell);
+
+        diag_btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        diag_btn_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+    }
+
+    private void subtypeSelection() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.sub_type_dialog);
+
+        CheckBox chek_casas = (CheckBox) dialog.findViewById(R.id.chek_casas);
+        CheckBox chek_locals = (CheckBox) dialog.findViewById(R.id.chek_locals);
+        CheckBox chek_oficinas = (CheckBox) dialog.findViewById(R.id.chek_oficinas);
+        CheckBox chek_terrenos = (CheckBox) dialog.findViewById(R.id.chek_terrenos);
+        CheckBox chek_departmentos = (CheckBox) dialog.findViewById(R.id.chek_departmentos);
+        TextView tv_done = (TextView) dialog.findViewById(R.id.tv_done);
+
+
+        tv_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
     }
 
     @Override
@@ -547,7 +668,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
                         txt_location.setText(strAdd.replace("\n", " "));
                     }
                 }
-               // txt_address.setText(strReturnedAddress.toString().replace("\n", " "));
+                // txt_address.setText(strReturnedAddress.toString().replace("\n", " "));
                 Log.w("address", "" + strReturnedAddress.toString());
             } else {
                 Log.w("address", "No Address returned!");

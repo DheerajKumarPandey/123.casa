@@ -83,11 +83,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/transparent_image"
         android:text="Already have an account ? Sign in"
         android:id="@+id/tv_already_acc"
         android:textColor="@color/white"
         android:textSize="@dimen/dim_18"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
         android:gravity="center"
         />
 </RelativeLayout>

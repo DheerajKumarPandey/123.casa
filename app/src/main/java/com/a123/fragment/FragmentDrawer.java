@@ -1,6 +1,7 @@
 package com.a123.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,13 +14,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.a123.ChangePasswordActivity;
 import com.a123.R;
+import com.a123.UpdateProfileActivity;
 import com.a123.adapter.NavigationDrawerAdapter;
 
 
@@ -47,12 +51,14 @@ public class FragmentDrawer extends Fragment {
     private TextView nav_item_promo_offer;
     private TextView nav_item_fav;
     private TextView nav_item_service_request;
+    private TextView nav_item_change_password;
     private RelativeLayout rl_profile;
     private RelativeLayout nav_item_chats;
     private RelativeLayout nav_item_notification;
     private RelativeLayout nav_item_wallet;
     private LinearLayout ll_menu;
     private ImageView img_profile;
+    private ImageButton img_btn_edit;
 
     public FragmentDrawer() {
 
@@ -101,7 +107,7 @@ public class FragmentDrawer extends Fragment {
 
      //   profile_name.setText(MyApp.getApplication().readUser().getName());
 
-
+        nav_item_change_password=(TextView)layout.findViewById(R.id.nav_item_change_password);
 
         nav_item_scheduled = (TextView) layout.findViewById(R.id.nav_item_scheduled);
         nav_item_invite_friends = (TextView) layout.findViewById(R.id.nav_item_invite_friends);
@@ -211,7 +217,20 @@ public class FragmentDrawer extends Fragment {
             }
         });*/
 
+        img_btn_edit=(ImageButton)layout.findViewById(R.id.img_btn_edit);
+        img_btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), UpdateProfileActivity.class));
+            }
+        });
 
+        nav_item_change_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+            }
+        });
         return layout;
     }
 
