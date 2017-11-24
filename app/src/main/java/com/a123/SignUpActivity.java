@@ -18,28 +18,39 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a123.application.MyApp;
 import com.a123.custome.CustomActivity;
+import com.a123.model.User;
+import com.a123.utills.AppConstant;
+import com.google.gson.Gson;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static java.sql.Types.NULL;
 
-public class SignUpActivity extends CustomActivity {
+public class SignUpActivity extends CustomActivity implements CustomActivity.ResponseCallback {
     private TextView tv_signup_as, tv_btn_signup;
-    private EditText edt_name, edt_email,edt_password, edt_dob, edt_phone, edt_address;
+    private EditText edt_name, edt_email, edt_password, edt_dob, edt_phone, edt_address;
     private Toolbar toolbar;
     private ImageButton img_btn_show_hide;
     private boolean showPassword = false;
+    private String loginType = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setResponseListener(this);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        TextView mTitle =(TextView) toolbar.findViewById(R.id.toolbar_title);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("");
         actionBar.setTitle("");
         setupUiElement();
@@ -52,7 +63,7 @@ public class SignUpActivity extends CustomActivity {
         setTouchNClick(R.id.tv_btn_signup);
         setTouchNClick(R.id.img_btn_show_hide);
 
-        img_btn_show_hide=(ImageButton)findViewById(R.id.img_btn_show_hide);
+        img_btn_show_hide = (ImageButton) findViewById(R.id.img_btn_show_hide);
         tv_signup_as = (TextView) findViewById(R.id.tv_signup_as);
         tv_btn_signup = (TextView) findViewById(R.id.tv_btn_signup);
         tv_btn_signup.setVisibility(View.GONE);
@@ -61,7 +72,7 @@ public class SignUpActivity extends CustomActivity {
         edt_dob = (EditText) findViewById(R.id.edt_dob);
         edt_phone = (EditText) findViewById(R.id.edt_phone);
         edt_address = (EditText) findViewById(R.id.edt_address);
-        edt_password=(EditText)findViewById(R.id.edt_password);
+        edt_password = (EditText) findViewById(R.id.edt_password);
         String htmlString = "<u>SIGN UP AS ? </u>";
         tv_signup_as.setText(Html.fromHtml(htmlString));
 
@@ -74,10 +85,10 @@ public class SignUpActivity extends CustomActivity {
             if (TextUtils.isEmpty(edt_name.getText().toString())) {
                 edt_name.setError("Enter Your Name");
                 return;
-            }else if (TextUtils.isEmpty(edt_password.getText().toString())){
+            } else if (TextUtils.isEmpty(edt_password.getText().toString())) {
                 edt_password.setError("Enter Password");
                 return;
-            }else if (TextUtils.isEmpty(edt_email.getText().toString())) {
+            } else if (TextUtils.isEmpty(edt_email.getText().toString())) {
                 edt_email.setError("Enter Email");
                 return;
             } else if (TextUtils.isEmpty(edt_dob.getText().toString())) {
@@ -113,6 +124,24 @@ public class SignUpActivity extends CustomActivity {
 
     }
 
+
+    private void userSignup() {
+        RequestParams p = new RequestParams();
+        p.put("name", edt_name.getText().toString());
+        p.put("email", edt_email.getText().toString());
+        p.put("password", edt_password.getText().toString());
+        p.put("dob", edt_dob.getText().toString());
+        p.put("PhoneNo", edt_phone.getText().toString());
+        p.put("Address", edt_address.getText().toString());
+        p.put("loginType", loginType);
+        p.put("socialLoginType", "0");
+        p.put("appVersion", "1.0");
+        p.put("deviceType", "Android");
+        p.put("deviceToken", AppConstant.DEVICE_TOKEN);
+        postCall(getContext(), AppConstant.BASE_URL + "SignUp", p, "Registering User", 1);
+
+
+    }
 
     private void signupSelection() {
         final Dialog dialog = new Dialog(this);
@@ -196,11 +225,19 @@ public class SignUpActivity extends CustomActivity {
             public void onClick(View v) {
                 if (img_btn_user.isSelected()) {
                     Toast.makeText(getContext(), "User Signup", Toast.LENGTH_SHORT).show();
+                    loginType = "1";
+
                 } else if (img_btn_agent.isSelected()) {
+                    loginType = "2";
                     Toast.makeText(getContext(), "Agent Signup", Toast.LENGTH_SHORT).show();
                 } else if (img_btn_seller_buyer.isSelected()) {
+                    loginType = "3";
                     Toast.makeText(getContext(), "Seller and Buyer", Toast.LENGTH_SHORT).show();
+                } else {
+                    loginType = "1";
+                    Toast.makeText(getContext(), "User Signup", Toast.LENGTH_SHORT).show();
                 }
+                userSignup();
                 dialog.dismiss();
             }
         });
@@ -210,5 +247,33 @@ public class SignUpActivity extends CustomActivity {
 
     private Context getContext() {
         return SignUpActivity.this;
+    }
+
+    @Override
+    public void onJsonObjectResponseReceived(JSONObject o, int callNumber) {
+        if (callNumber == 1) {
+            if (o.optString("status").equals("1")) {
+               /* try {
+                    User u = new Gson().fromJson(o.getJSONObject("info").toString(), User.class);
+                    MyApp.getApplication().writeUser(u);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }*/
+                startActivity(new Intent(getContext(), MainActivity.class));
+            }else {
+                MyApp.popMessage("Error",o.optString("message"),getContext());
+            }
+        }
+
+    }
+
+    @Override
+    public void onJsonArrayResponseReceived(JSONArray a, int callNumber) {
+
+    }
+
+    @Override
+    public void onErrorReceived(String error) {
+        MyApp.popMessage("Error", error, getContext());
     }
 }

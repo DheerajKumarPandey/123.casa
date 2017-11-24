@@ -17,14 +17,14 @@ import android.widget.Toast;
 
 import com.a123.custome.CustomActivity;
 
+import org.w3c.dom.Text;
+
 public class ChangePasswordActivity extends CustomActivity {
     private Toolbar toolbar;
     private EditText edt_current_password, edt_new_password, edt_confirm_password;
-    private ImageButton img_btn_show_hide,img_btn_show_hide_new, img_btn_show_hide_cnf;
+    private ImageButton img_btn_show_hide, img_btn_show_hide_new, img_btn_show_hide_cnf;
     private Button btn_submit;
     private boolean showPassword = false;
-
-
 
 
     @Override
@@ -53,17 +53,16 @@ public class ChangePasswordActivity extends CustomActivity {
         setTouchNClick(R.id.btn_submit);
 
 
-                edt_current_password=(EditText)findViewById(R.id.edt_current_password) ;
-                edt_new_password=(EditText)findViewById(R.id.edt_new_password) ;
-                edt_confirm_password=(EditText)findViewById(R.id.edt_confirm_password) ;
+        edt_current_password = (EditText) findViewById(R.id.edt_current_password);
+        edt_new_password = (EditText) findViewById(R.id.edt_new_password);
+        edt_confirm_password = (EditText) findViewById(R.id.edt_confirm_password);
 
-                img_btn_show_hide=(ImageButton) findViewById(R.id.img_btn_show_hide) ;
-                img_btn_show_hide_new=(ImageButton) findViewById(R.id.img_btn_show_hide_new) ;
-                img_btn_show_hide_cnf=(ImageButton) findViewById(R.id.img_btn_show_hide_cnf) ;
+        img_btn_show_hide = (ImageButton) findViewById(R.id.img_btn_show_hide);
+        img_btn_show_hide_new = (ImageButton) findViewById(R.id.img_btn_show_hide_new);
+        img_btn_show_hide_cnf = (ImageButton) findViewById(R.id.img_btn_show_hide_cnf);
 
 
-                btn_submit = (Button)findViewById(R.id.btn_submit);
-
+        btn_submit = (Button) findViewById(R.id.btn_submit);
 
 
     }
@@ -92,7 +91,7 @@ public class ChangePasswordActivity extends CustomActivity {
                 edt_new_password.setTransformationMethod(new PasswordTransformationMethod());
                 showPassword = false;
             }
-        }else if (v.getId() == R.id.img_btn_show_hide_cnf) {
+        } else if (v.getId() == R.id.img_btn_show_hide_cnf) {
 
             if (showPassword == false) {
                 img_btn_show_hide_cnf.setImageResource(R.drawable.eye_hidden);
@@ -103,8 +102,20 @@ public class ChangePasswordActivity extends CustomActivity {
                 edt_confirm_password.setTransformationMethod(new PasswordTransformationMethod());
                 showPassword = false;
             }
-        }else if (v.getId() == R.id.btn_submit) {
-            Toast.makeText(this, "Password Successfully Changed", Toast.LENGTH_SHORT).show();
+        } else if (v.getId() == R.id.btn_submit) {
+            if (TextUtils.isEmpty(edt_current_password.getText().toString())) {
+                edt_current_password.setError("Enter Your Existing Password");
+                return;
+            } else if (TextUtils.isEmpty(edt_new_password.getText().toString())) {
+                edt_new_password.setError("Enter the New Password");
+                return;
+            }else if (TextUtils.isEmpty(edt_confirm_password.getText().toString())){
+                edt_confirm_password.setError("Please confirm the password");
+                return;
+            }else if(!edt_new_password.getText().toString().equals(edt_confirm_password.getText().toString())){
+                edt_confirm_password.setError("The password mismatch");
+                return;
+            }
 
         }
 

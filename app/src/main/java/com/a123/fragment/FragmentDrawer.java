@@ -27,6 +27,7 @@ import com.a123.R;
 import com.a123.UpdateProfileActivity;
 import com.a123.adapter.NavigationDrawerAdapter;
 import com.a123.application.MyApp;
+import com.a123.model.User;
 
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class FragmentDrawer extends Fragment {
     private TextView nav_item_notification;
     private TextView nav_item_change_password;
     private TextView nav_item_logout;
-
+    private List<User> users;
 
 
     public FragmentDrawer() {
@@ -107,23 +108,28 @@ public class FragmentDrawer extends Fragment {
         //  recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
 
-     //   profile_name.setText(MyApp.getApplication().readUser().getName());
+        //   profile_name.setText(MyApp.getApplication().readUser().getName());
 
-        tv_email=(TextView)layout.findViewById(R.id.tv_email);
-        tv_email.setText(MyApp.getApplication().readUser().getInfo().get(0).getEmail());
-        tv_name=(TextView)layout.findViewById(R.id.tv_name) ;
-        tv_name.setText(MyApp.getApplication().readUser().getInfo().get(0).getName());
-        img_btn_edit=(ImageButton)layout.findViewById(R.id.img_btn_edit);
+        tv_email = (TextView) layout.findViewById(R.id.tv_email);
 
-        nav_item_home=(TextView)layout.findViewById(R.id.nav_item_home);
-        nav_item_map_search=(TextView)layout.findViewById(R.id.nav_item_map_search);
-        nav_item_view_listing=(RelativeLayout)layout.findViewById(R.id.nav_item_view_listing);
-        nav_item_fav=(RelativeLayout)layout.findViewById(R.id.nav_item_fav);
-        nav_item_share=(RelativeLayout)layout.findViewById(R.id.nav_item_share);
-        nav_item_visited=(TextView)layout.findViewById(R.id.nav_item_visited);
-        nav_item_notification=(TextView)layout.findViewById(R.id.nav_item_notification);
-        nav_item_change_password=(TextView)layout.findViewById(R.id.nav_item_change_password);
-        nav_item_logout=(TextView)layout.findViewById(R.id.nav_item_logout);
+        tv_name = (TextView) layout.findViewById(R.id.tv_name);
+
+        img_btn_edit = (ImageButton) layout.findViewById(R.id.img_btn_edit);
+
+        nav_item_home = (TextView) layout.findViewById(R.id.nav_item_home);
+        nav_item_map_search = (TextView) layout.findViewById(R.id.nav_item_map_search);
+        nav_item_view_listing = (RelativeLayout) layout.findViewById(R.id.nav_item_view_listing);
+        nav_item_fav = (RelativeLayout) layout.findViewById(R.id.nav_item_fav);
+        nav_item_share = (RelativeLayout) layout.findViewById(R.id.nav_item_share);
+        nav_item_visited = (TextView) layout.findViewById(R.id.nav_item_visited);
+        nav_item_notification = (TextView) layout.findViewById(R.id.nav_item_notification);
+        nav_item_change_password = (TextView) layout.findViewById(R.id.nav_item_change_password);
+        nav_item_logout = (TextView) layout.findViewById(R.id.nav_item_logout);
+        try {
+           tv_name.setText(MyApp.getApplication().readUser().getInfo().get(0).getEmail());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         nav_item_home.setOnClickListener(new View.OnClickListener() {
             @Override
