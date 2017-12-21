@@ -20,6 +20,7 @@
         android:textSize="@dimen/dim_15" />
 
     <EditText
+        android:id="@+id/edt_buy_rent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dim_15"
@@ -34,6 +35,7 @@
         android:textSize="@dimen/dim_16" />
 
     <EditText
+        android:id="@+id/edt_property_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dim_15"
@@ -41,6 +43,22 @@
         android:layout_marginTop="@dimen/dim_5"
         android:background="@drawable/grey_rect_edt_bg"
         android:hint="Type of property"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10"
+        android:textSize="@dimen/dim_16" />
+
+    <EditText
+        android:id="@+id/edt_no_bedrooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_5"
+        android:inputType="number"
+        android:background="@drawable/grey_rect_edt_bg"
+        android:hint="No Of Bedrooms Optional ?"
         android:paddingBottom="@dimen/dim_10"
         android:paddingLeft="@dimen/dim_10"
         android:paddingRight="@dimen/dim_10"
@@ -56,9 +74,11 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/edt_min_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:inputType="number"
             android:background="@drawable/grey_rect_edt_bg"
             android:hint="Min Price"
             android:paddingBottom="@dimen/dim_10"
@@ -73,11 +93,13 @@
             android:layout_weight="1" />
 
         <EditText
+            android:id="@+id/edt_max_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:background="@drawable/grey_rect_edt_bg"
             android:hint="Max Price"
+            android:inputType="number"
             android:paddingBottom="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_5"
             android:paddingRight="@dimen/dim_5"
@@ -86,13 +108,14 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/edt_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dim_15"
         android:layout_marginRight="@dimen/dim_15"
         android:layout_marginTop="@dimen/dim_5"
         android:background="@drawable/grey_rect_edt_bg"
-        android:hint="Location"
+        android:hint=" Interested Location"
         android:paddingBottom="@dimen/dim_10"
         android:paddingLeft="@dimen/dim_10"
         android:paddingRight="@dimen/dim_10"
@@ -110,9 +133,9 @@
         android:textSize="@dimen/dim_16" />
 
     <EditText
+        android:id="@+id/edt_description"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim_100"
-
         android:layout_marginLeft="@dimen/dim_15"
         android:layout_marginRight="@dimen/dim_15"
         android:background="@drawable/grey_rect_edt_bg"
@@ -134,6 +157,7 @@
         android:layout_marginTop="@dimen/dim_25"
         android:background="@drawable/proceed_button"
         android:gravity="center"
+        android:id="@+id/tv_submit"
         android:paddingBottom="@dimen/dim_10"
         android:paddingLeft="@dimen/dim_5"
         android:paddingRight="@dimen/dim_5"

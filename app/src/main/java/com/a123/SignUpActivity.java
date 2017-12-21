@@ -23,11 +23,16 @@ import com.a123.custome.CustomActivity;
 import com.a123.model.User;
 import com.a123.utills.AppConstant;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import static java.sql.Types.NULL;
 
@@ -253,12 +258,21 @@ public class SignUpActivity extends CustomActivity implements CustomActivity.Res
     public void onJsonObjectResponseReceived(JSONObject o, int callNumber) {
         if (callNumber == 1) {
             if (o.optString("status").equals("1")) {
-               /* try {
-                    User u = new Gson().fromJson(o.getJSONObject("info").toString(), User.class);
+                Type listType= new TypeToken<List<User.Info>>(){
+                }.getType();
+
+                try {
+                    List<User.Info>u= new Gson().fromJson(o.getJSONArray("info").toString(),listType);
+//                    User ur =new Gson().fromJson(o.toString(),User.class);
                     MyApp.getApplication().writeUser(u);
+                   /* User u = new Gson().fromJson(o.getJSONObject("info").toString(), User.class);
+                    MyApp.getApplication().writeUser(u);*/
                 }catch (JSONException e){
                     e.printStackTrace();
-                }*/
+                    MyApp.popMessage("Alert!","Parsing error.", getContext());
+                }catch (JsonSyntaxException ee){
+
+                }
                 startActivity(new Intent(getContext(), MainActivity.class));
             }else {
                 MyApp.popMessage("Error",o.optString("message"),getContext());

@@ -145,7 +145,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginBottom="@dimen/dim_10"
-        android:id="@+id/tv_btn_signup"
+        android:id="@+id/tv_btn_update"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/dim_20"
         android:textColor="@color/white"

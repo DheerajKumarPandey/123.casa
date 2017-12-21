@@ -20,11 +20,16 @@ import com.a123.custome.CustomActivity;
 import com.a123.model.User;
 import com.a123.utills.AppConstant;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class LoginActivity extends CustomActivity implements CustomActivity.ResponseCallback {
     private EditText edt_username, edt_password;
@@ -116,14 +121,24 @@ public class LoginActivity extends CustomActivity implements CustomActivity.Resp
         if (callNumber == 1) {
 
             if (o.optString("status").equals("1")) {
+                Type listType = new TypeToken<List<User.Info>>() {
+                }.getType();
+
                 try {
-                    User u = new Gson().fromJson(o.getJSONObject("info").toString(), User.class);
+                    List<User.Info> u = new Gson().fromJson(o.getJSONArray("info").toString(), listType);
                     MyApp.getApplication().writeUser(u);
-                }catch (JSONException e){
+                    MyApp.setStatus(AppConstant.IS_LOGIN,true);
+                    finishAffinity();
+
+
+                } catch (JSONException e) {
                     e.printStackTrace();
+                    MyApp.popMessage("Alert!", "Parsing error.", getContext());
+                } catch (JsonSyntaxException ee) {
+
                 }
 
-
+                finish();
                 startActivity(new Intent(getContext(), MainActivity.class));
 
             } else {

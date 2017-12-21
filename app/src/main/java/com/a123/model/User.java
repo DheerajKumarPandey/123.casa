@@ -46,6 +46,16 @@ public class User implements Serializable {
         private String password;
         private String phoneno;
 
+        public String getDob() {
+            return dob;
+        }
+
+        public void setDob(String dob) {
+            this.dob = dob;
+        }
+
+        private String dob;
+
         public String getId() {
             return id;
         }

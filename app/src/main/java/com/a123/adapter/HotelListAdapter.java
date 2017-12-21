@@ -13,7 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.a123.ImmediateAppointmentActivity;
+import com.a123.MainActivity;
+import com.a123.PropertyDetailActivity;
 import com.a123.R;
+import com.a123.model.UserList;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +29,12 @@ import java.util.List;
 
 public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.DataHolder> {
 
-    private List<DummyHotelItem> listdata;
+    private List<UserList.Info> listdata;
     private LayoutInflater inflater;
     private ItemClickCallback itemclickcallback;
     private int count = 0;
+
+    private boolean fav=false;
     private Context context;
     public interface ItemClickCallback {
         void onItemClick(int p);
@@ -47,7 +54,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
     }
 
 
-    public HotelListAdapter(List<DummyHotelItem> listdata, Context c) {
+    public HotelListAdapter(List<UserList.Info> listdata, Context c) {
         this.inflater = LayoutInflater.from(c);
         this.listdata = listdata;
         this.context = c;
@@ -63,12 +70,14 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
 
     @Override
     public void onBindViewHolder(DataHolder holder, int position) {
-        DummyHotelItem item = listdata.get(position);
-        holder.tv_sr_no.setText(item.getSrNo());
-        holder.img_hotel.setImageResource(item.getHotelImage());
-        holder.tv_date.setText(item.getDate());
-        holder.tv_description.setText(item.getDescription());
-        holder.tv_address.setText(item.getAddress());
+        UserList.Info item = listdata.get(position);
+        holder.tv_sr_no.setText(item.getMax_price());
+        Glide.with(context)
+                .load(item.getThumbnailImage())
+                .into(holder.img_hotel);
+        holder.tv_date.setText(item.getCreated_at());
+      //  holder.tv_description.setText(item.getDescription());
+        holder.tv_address.setText("Location :"+item.getAddress());
     }
 
     @Override
@@ -81,12 +90,13 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
         TextView tv_sr_no, tv_rent,tv_date, tv_description, tv_address,tv_appointment ;
         ImageButton img_btn_fav;
         ImageView img_hotel;
+        RelativeLayout rel_list_item;
         
         public DataHolder(final View itemView) {
             super(itemView);
             img_hotel=(ImageView)itemView.findViewById(R.id.img_hotel);
             img_btn_fav=(ImageButton)itemView.findViewById(R.id.img_btn_fav);
-            
+            rel_list_item=(RelativeLayout)itemView.findViewById(R.id.rel_list_item);
             tv_sr_no=(TextView)itemView.findViewById(R.id.tv_sr_no);
             tv_rent=(TextView)itemView.findViewById(R.id.tv_rent);
             tv_date=(TextView)itemView.findViewById(R.id.tv_date);
@@ -94,17 +104,36 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
             tv_address=(TextView)itemView.findViewById(R.id.tv_address);
             tv_appointment=(TextView)itemView.findViewById(R.id.tv_appointment);
 
+            rel_list_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent= new Intent(context,PropertyDetailActivity.class);
+                    intent.putExtra("position",String.valueOf(getLayoutPosition()));
+                    // String position=pagetLayoutPosition();
+                    context.startActivity(intent);
 
+                   // context.startActivity(new Intent(context, PropertyDetailActivity.class));
+                }
+            });
             img_btn_fav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    img_btn_fav.setImageResource(R.drawable.ic_favorite_border);
+                    if(fav==true){
+                        img_btn_fav.setImageResource(R.drawable.ic_favorite_border);
+                        fav= false;
+                    }
+                    else {
+                        img_btn_fav.setImageResource(R.drawable.ic_favorite);
+                        fav=true;
+                    }
+
                 }
             });
             tv_appointment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show();
+                    //((MainActivity)context).immediateAppointment( getLayoutPosition());
+                    context.startActivity(new Intent(context, ImmediateAppointmentActivity.class));
                 }
             });
 
@@ -113,9 +142,12 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
 
     }
 
-    public void setListData(ArrayList<DummyHotelItem> exerciseList) {
+ /*   public void setListData(ArrayList<DummyHotelItem> exerciseList) {
         this.listdata.clear();
         this.listdata.addAll(exerciseList);
 
-    }
+    }*/
+
+
+
 }

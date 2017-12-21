@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.a123.PictureActivity">
+<include
+    layout="@layout/toolbar"/>
+    <ImageView
+        android:layout_width="@dimen/dim_180"
+        android:layout_height="@dimen/dim_180"
+        android:padding="@dimen/dim_5"
+        android:scaleType="fitXY"
+        android:id="@+id/img_property_image"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/grey_rect_edt_bg"
+        android:src="@drawable/logo_name"
+        />
+    <TextView
+        android:layout_width="@dimen/dim_180"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim_2"
+        android:gravity="center"
+        android:id="@+id/tv_capture_pic"
+        android:text="Capture Photo"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_18"
+        android:background="@drawable/sign_up_button"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dim_30"
+    android:layout_marginLeft="@dimen/dim_15"
+    android:text="Description"
+    android:textSize="@dimen/dim_18"
+    android:textColor="@color/black"
+    />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim_120"
+        android:layout_marginLeft="@dimen/dim_15"
+        android:layout_marginRight="@dimen/dim_15"
+        android:layout_marginTop="@dimen/dim_2"
+        android:maxLines="5"
+        android:gravity="top"
+        android:id="@+id/edt_description"
+        android:background="@drawable/grey_rect_edt_bg"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sign_up_button"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Submit"
+        android:id="@+id/tv_submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_18"
+        android:layout_marginTop="@dimen/dim_10"
+        />
+</LinearLayout>

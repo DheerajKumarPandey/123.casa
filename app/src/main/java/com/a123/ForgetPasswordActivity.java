@@ -1,6 +1,7 @@
 package com.a123;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -87,7 +88,9 @@ public class ForgetPasswordActivity extends CustomActivity implements CustomActi
     public void onJsonObjectResponseReceived(JSONObject o, int callNumber) {
         if (callNumber == 1) {
             if (o.optString("status").equals("1")) {
-                MyApp.popMessage("Successful","Password Send to your Email ID",getContext());
+                MyApp.popMessage("Successful",o.optString("message"),getContext());
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                finishAffinity();
             }else {
                 MyApp.popMessage("Error",o.optString("message"),getContext());
             }

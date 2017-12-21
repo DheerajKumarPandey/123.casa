@@ -47,6 +47,7 @@ import com.a123.application.MyApp;
 import com.a123.application.SingleInstance;
 import com.a123.custome.CustomActivity;
 import com.a123.fragment.FragmentDrawer;
+import com.a123.model.UserList;
 import com.a123.utills.AppConstant;
 import com.a123.utills.LocationProvider;
 import com.google.android.gms.common.ConnectionResult;
@@ -72,6 +73,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +88,7 @@ import static java.sql.Types.NULL;
 public class MainActivity extends CustomActivity implements FragmentDrawer.FragmentDrawerListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, LocationProvider.LocationCallback, LocationProvider.PermissionCallback, GoogleMap.OnCameraIdleListener,
-        ResultCallback<LocationSettingsResult> {
+        ResultCallback<LocationSettingsResult>,CustomActivity.ResponseCallback {
     private boolean isFirstSet = false;
     private GoogleApiClient googleApiClient;
     private LatLng sourceLocation = null;
@@ -93,24 +98,26 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
     private TextView tv_filter, tv_show_open_house, tv_select_type, tv_select_subtype, tv_help, tv_chat;
     private CheckBox chek_box_appointment;
     //  private TextView txt_address;
+    private HotelListAdapter adapter;
+    private List<UserList.Info> userlist = new ArrayList<>();
     private FrameLayout map_view;
     private GoogleMap mMap;
     private DrawerLayout drawer;
     private SupportMapFragment mapFragment;
     private RecyclerView recycler_list_view;
     private ArrayList listdata;
-    private HotelListAdapter adapter;
+    //private HotelListAdapter adapter;
     protected GoogleApiClient mGoogleApiClient;
     protected static final String TAG = "MainActivity";
     private TextView Tv_search, Tv_service, Tv_notification, Tv_account;
     private ImageButton navBtn, btn_search, img_btn_notification;
-    int count= 0;
+    int count = 0;
     FloatingActionButton Show_all, Domestic, Construction, Events;
     String[] SpinnerText = {"Wallet", "Cash"};
     // int SpinnerIcons[] = {R.drawable.wallet_white, R.drawable.cash_white};
     private Spinner wallet_cash_spiner;
     private TextView tv_book_now;
-
+    private TextView tv_news_txt;
     private static final int CAMERA_PIC_REQUEST = 1337;
 
     @Override
@@ -130,13 +137,21 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
             lp.setMargins(0, getStatusBarHeight(), 0, -getStatusBarHeight());
 //            v.setPadding(getStatusBarHeight(), getStatusBarHeight(), getStatusBarHeight(), 0);
         }*/
-        map_view=(FrameLayout)findViewById(R.id.map_view);
-        recycler_list_view=(RecyclerView)findViewById(R.id.recycler_list_view);
+      setResponseListener(this);
+
+        tv_news_txt = (TextView) findViewById(R.id.tv_news_txt);
+        tv_news_txt.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tv_news_txt.setText("General Information... general information... General Information");
+        tv_news_txt.setSelected(true);
+        tv_news_txt.setSingleLine(true);
+        map_view = (FrameLayout) findViewById(R.id.map_view);
+        recycler_list_view = (RecyclerView) findViewById(R.id.recycler_list_view);
         listdata = (ArrayList) DummyHotelData.getListData();
         recycler_list_view.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HotelListAdapter(listdata, this);
+        userlist = MyApp.getApplication().readUserList();
+        adapter = new HotelListAdapter(userlist, this);
         recycler_list_view.setAdapter(adapter);
-        txt_location = (TextView) findViewById(R.id.txt_location);
+
         setupUiElements();
         locationProvider = new LocationProvider(this, this, this);
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -171,6 +186,9 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         }, (1000 * 10));
 
     }
+
+
+
 
     public int getStatusBarHeight() {
         int result = 0;
@@ -226,6 +244,11 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
 
             dialog.show();
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
     @Override
@@ -358,33 +381,37 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
             drawer.openDrawer(GravityCompat.START);
 
         } else if (v == btn_search) {
-            if(count== 0) {
+            if (count == 0) {
                 count = 1;
-                map_view.setVisibility(View.GONE);
+                map_view.setVisibility(View.VISIBLE);
+                btn_search.setImageResource(R.drawable.ic_view_list);
+                recycler_list_view.setVisibility(View.VISIBLE);
+            } else {
+                count = 0;
                 btn_search.setImageResource(R.drawable.ic_map);
+                map_view.setVisibility(View.GONE);
                 recycler_list_view.setVisibility(View.VISIBLE);
             }
-            else {
-                count=0;
-                btn_search.setImageResource(R.drawable.ic_view_list);
-                map_view.setVisibility(View.VISIBLE);
-                recycler_list_view.setVisibility(View.GONE);
-            }
-        }else if(v == tv_select_type){
+        } else if (v == tv_select_type) {
             typeSelection();
 
-        }else if(v ==tv_select_subtype){
+        } else if (v == tv_select_subtype) {
             subtypeSelection();
-        }else if(v== img_btn_notification){
+        } else if (v == img_btn_notification) {
             startActivity(new Intent(MainActivity.this, NotificationActivity.class));
-        }else if(v== tv_help){
+        } else if (v == tv_help) {
 
             startActivity(new Intent(MainActivity.this, HelpActivity.class));
 
-        }else if(v == tv_filter){
+        } else if (v == tv_filter) {
             startActivity(new Intent(MainActivity.this, FilterActivity.class));
-        }else if(v == tv_show_open_house){
-            startActivity(new Intent( MainActivity.this, OpenHouseActivity.class));
+        } else if (v == tv_show_open_house) {
+            //startActivity(new Intent(MainActivity.this, OpenHouseActivity.class));
+            Toast.makeText(this, "Work In Progress", Toast.LENGTH_SHORT).show();
+        }else if(v==txt_location){
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra(AppConstant.EXTRA_1, "Enter your location");
+            MainActivity.this.startActivityForResult(intent, 122);
         }
     }
 
@@ -419,7 +446,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         btn_search = (ImageButton) findViewById(R.id.btn_search);
         img_btn_notification = (ImageButton) findViewById(R.id.img_btn_notification);
 
-
+        txt_location = (TextView) findViewById(R.id.txt_location);
         tv_filter = (TextView) findViewById(R.id.tv_filter);
         tv_show_open_house = (TextView) findViewById(R.id.tv_show_open_house);
         tv_select_type = (TextView) findViewById(R.id.tv_select_type);
@@ -429,6 +456,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
 
         chek_box_appointment = (CheckBox) findViewById(R.id.chek_box_appointment);
 
+        setClick(R.id.txt_location);
 
         setClick(R.id.nav_drawer_btn);
         setClick(R.id.btn_search);
@@ -502,7 +530,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
 
             return;
@@ -570,9 +598,10 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                     locationButton.getLayoutParams();
             // position on right bottom
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, 30, 300);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            layoutParams.setMargins(0, 300, 30, 0);
         }
     }
 
@@ -580,7 +609,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
 
         Log.d(TAG, "Reaching map" + mMap);
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             return;
         }
@@ -589,13 +618,13 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         if (mMap != null) {
             mMap.getUiSettings().setZoomControlsEnabled(false);
             LatLng latLong;
-
-
             latLong = new LatLng(location.getLatitude(), location.getLongitude());
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLong).zoom(15.5f).tilt(0).build();
 
+            MyApp.setSharedPrefString(AppConstant.LAT, String.valueOf(location.getLatitude()));
+            MyApp.setSharedPrefString(AppConstant.LONG, String.valueOf(location.getLongitude()));
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.animateCamera(CameraUpdateFactory
@@ -645,19 +674,53 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
     private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
         String strAdd = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        mMap.clear();
+    /*    mMap.clear();
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(new LatLng(this.sourceLocation.latitude, this.sourceLocation.longitude));
+        builder.include(new LatLng(this.sourceLocation.latitude, this.sourceLocation.longitude));*/
 
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(adjustBoundsForMaxZoomLevel(builder.build()), 50);
+        // CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(adjustBoundsForMaxZoomLevel(builder.build()), 50);
 
         try {
             List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
             if (addresses != null) {
                 Address returnedAddress = addresses.get(0);
                 StringBuilder strReturnedAddress = new StringBuilder("");
+                if (returnedAddress.getMaxAddressLineIndex() > 0) {
+                    for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
+                        strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                    }
+                } else {
+                    try {
+                        strAdd = returnedAddress.getAddressLine(0);
+                    } catch (Exception ignored) {
+                    }
+                }
+                txt_location.setText(strAdd.replace("\n", " "));
+                if (strAdd.isEmpty()) {
+                    String alterAdd = "";
+                    alterAdd = addresses.get(0).getSubLocality();
+                    if (alterAdd.isEmpty() && strAdd.isEmpty()) {
+                        alterAdd = addresses.get(0).getLocality();
+                        if (alterAdd.isEmpty()) {
+                            alterAdd = strAdd.replace("\n", " ");
+                        }
+                    }
+                    txt_location.setText(alterAdd);
+                }
 
-                for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
+                Log.w("address", "" + strReturnedAddress.toString());
+            } else {
+                Log.w("address", "No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w("address", "Canont get Address!");
+        }
+        return strAdd;
+    }
+
+        /*
+        for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
                     strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
                 }
                 strAdd = strReturnedAddress.toString();
@@ -679,7 +742,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         }
 
         return strAdd;
-    }
+    }*/
 
     @Override
     public void handleNewLocation(Location location) {
@@ -741,6 +804,57 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+//        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+//                mGoogleApiClient);
+//        if (mLastLocation != null) {
+////            changeMap(mLastLocation);
+//            Log.d(TAG, "ON connected");
+//
+//        } else
+//            try {
+//                LocationServices.FusedLocationApi.removeLocationUpdates(
+//                        mGoogleApiClient, this);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        try {
+//            LocationRequest mLocationRequest = new LocationRequest();
+//            mLocationRequest.setInterval(10000);
+//            mLocationRequest.setFastestInterval(5000);
+//            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//            LocationServices.FusedLocationApi.requestLocationUpdates(
+//                    mGoogleApiClient, mLocationRequest, MainActivity.this);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        locationProvider = new LocationProvider(this, this, this);
+        locationProvider.connect();
+    }
+
+    @Override
+    public void onJsonObjectResponseReceived(JSONObject o, int callNumber) {
+
+
+    }
+
+    @Override
+    public void onJsonArrayResponseReceived(JSONArray a, int callNumber) {
+
+    }
+
+    @Override
+    public void onErrorReceived(String error) {
+
     }
 
 

@@ -23,11 +23,14 @@ import android.widget.TextView;
 
 import com.a123.ChangePasswordActivity;
 import com.a123.NotificationActivity;
+import com.a123.PropertyDetailActivity;
 import com.a123.R;
+import com.a123.SellerHomeActivity;
 import com.a123.UpdateProfileActivity;
 import com.a123.adapter.NavigationDrawerAdapter;
 import com.a123.application.MyApp;
 import com.a123.model.User;
+import com.a123.utills.AppConstant;
 
 
 import java.util.ArrayList;
@@ -126,7 +129,9 @@ public class FragmentDrawer extends Fragment {
         nav_item_change_password = (TextView) layout.findViewById(R.id.nav_item_change_password);
         nav_item_logout = (TextView) layout.findViewById(R.id.nav_item_logout);
         try {
-           tv_name.setText(MyApp.getApplication().readUser().getInfo().get(0).getEmail());
+            // tv_name.setText(MyApp.getApplication().readUser().getInfo().get(0).getEmail());
+            tv_name.setText(MyApp.getApplication().readUser().get(0).getName());
+            tv_email.setText(MyApp.getApplication().readUser().get(0).getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,7 +160,7 @@ public class FragmentDrawer extends Fragment {
         nav_item_fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //startActivity(new Intent(getActivity(), PropertyDetailActivity.class));
             }
         });
         nav_item_share.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +172,7 @@ public class FragmentDrawer extends Fragment {
         nav_item_visited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), SellerHomeActivity.class));
             }
         });
 
@@ -187,6 +192,7 @@ public class FragmentDrawer extends Fragment {
         nav_item_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyApp.setStatus(AppConstant.IS_LOGIN, false);
                 getActivity().finishAffinity();
             }
         });
@@ -290,6 +296,7 @@ public class FragmentDrawer extends Fragment {
         nav_item_change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
             }
         });

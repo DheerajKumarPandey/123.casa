@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.a123.model.Country;
 import com.a123.model.User;
+import com.a123.model.UserList;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -371,26 +372,26 @@ public class MyApp extends Application {
 
     }
 
-    public static String getDeviceId() {
-
-        String android_id = "";
-        final TelephonyManager tm = (TelephonyManager) ctx
-                .getSystemService(Context.TELEPHONY_SERVICE);
-
-        final String tmDevice, tmSerial, androidId;
-        tmDevice = "" + tm.getDeviceId();
-        tmSerial = "" + tm.getSimSerialNumber();
-        androidId = ""
-                + Settings.Secure.getString(
-                ctx.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        UUID deviceUuid = new UUID(androidId.hashCode(),
-                ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
-        android_id = deviceUuid.toString();
-        return android_id;
-
-    }
+//    public static String getDeviceId() {
+//
+//        String android_id = "";
+//        final TelephonyManager tm = (TelephonyManager) ctx
+//                .getSystemService(Context.TELEPHONY_SERVICE);
+//
+//        final String tmDevice, tmSerial, androidId;
+//        tmDevice = "" + tm.getDeviceId();
+//        tmSerial = "" + tm.getSimSerialNumber();
+//        androidId = ""
+//                + Settings.Secure.getString(
+//                ctx.getContentResolver(),
+//                Settings.Secure.ANDROID_ID);
+//
+//        UUID deviceUuid = new UUID(androidId.hashCode(),
+//                ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
+//        android_id = deviceUuid.toString();
+//        return android_id;
+//
+//    }
 
     public static int getDisplayWidth() {
         WindowManager wm = (WindowManager) ctx
@@ -626,7 +627,7 @@ public class MyApp extends Application {
         return user;
     }
 
-    public void writeUser(User user) {
+    public void writeUser(List<User.Info> user) {
         try {
             String path = "/data/data/" + ctx.getPackageName()
                     + "/user.ser";
@@ -646,16 +647,62 @@ public class MyApp extends Application {
         }
     }
 
-    public User readUser() {
+    public List<User.Info> readUser() {
         String path = "/data/data/" + ctx.getPackageName() + "/user.ser";
         File f = new File(path);
-        User user = new User();
+      List<User.Info>user = new ArrayList<>();
         if (f.exists()) {
             try {
                 System.gc();
                 FileInputStream fileIn = new FileInputStream(path);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
-                user = (User) in.readObject();
+                user = (List<User.Info>) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (StreamCorruptedException e) {
+                e.printStackTrace();
+            } catch (OptionalDataException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
+
+    public void writeUserList(List<UserList.Info> user) {
+        try {
+            String path = "/data/data/" + ctx.getPackageName()
+                    + "/userlist.ser";
+            File f = new File(path);
+            if (f.exists()) {
+                f.delete();
+            }
+            FileOutputStream fileOut = new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(user);
+            out.close();
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<UserList.Info> readUserList() {
+        String path = "/data/data/" + ctx.getPackageName() + "/userlist.ser";
+        File f = new File(path);
+        List<UserList.Info>user = new ArrayList<>();
+        if (f.exists()) {
+            try {
+                System.gc();
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                user = (List<UserList.Info>) in.readObject();
                 in.close();
                 fileIn.close();
             } catch (StreamCorruptedException e) {
