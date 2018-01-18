@@ -132,7 +132,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
             tv_appointment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //((MainActivity)context).immediateAppointment( getLayoutPosition());
+                   // ((MainActivity)context).immediateAppointment( getLayoutPosition());
+
                     context.startActivity(new Intent(context, ImmediateAppointmentActivity.class));
                 }
             });

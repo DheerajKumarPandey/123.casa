@@ -35,6 +35,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorPortrait" />
@@ -79,9 +91,30 @@
         <activity
             android:name=".SearchActivity"
             android:screenOrientation="sensorPortrait" />
-        <activity android:name=".ImmediateAppointmentActivity" />
-        <activity android:name=".SellerHomeActivity" />
-        <activity android:name=".PictureActivity"></activity>
+        <activity
+            android:name=".ImmediateAppointmentActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".SellerHomeActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".PictureActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".AddPropertyActivity"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".AddPropertyActivityTwo"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".AddPropertyActivityThree"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".TerrenoActivity" />
+        <activity android:name=".BodegaActivity" />
+        <activity android:name=".MapActivity"></activity>
     </application>
 
 </manifest>

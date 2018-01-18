@@ -38,6 +38,7 @@ public class SplashActivity extends CustomActivity implements CustomActivity.Res
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         setResponseListener(this);
+        Log.d("Device Token:", MyApp.getSharedPrefString(AppConstant.DEVICE_TOKEN));
         getUserList();
 
     }
@@ -61,6 +62,9 @@ public class SplashActivity extends CustomActivity implements CustomActivity.Res
         postCall(getContext(), AppConstant.BASE_URL + "Userlisting", p, "Getting...", 1);
     }
 
+    private void metaInformation() {
+        getCall(getContext(), AppConstant.BASE_URL + "metaInformation", "Loading", 2);
+    }
 
 
     @Override
@@ -78,13 +82,15 @@ public class SplashActivity extends CustomActivity implements CustomActivity.Res
                     return;
                 } catch (JsonSyntaxException ee) {
                 }
-          if(MyApp.getStatus(AppConstant.IS_LOGIN)){
-              startActivity(new Intent(getContext(), MainActivity.class));
-              finish();
-          }else {
-              startActivity(new Intent(getContext(), SocialLoginActivity.class));
-              finish();
-          }
+                metaInformation();
+              /*  if (MyApp.getStatus(AppConstant.IS_LOGIN)) {
+                    //startActivity(new Intent(getContext(), MainActivity.class));
+
+                    finish();
+                } else {
+                    // startActivity(new Intent(getContext(), SocialLoginActivity.class));
+                    finish();
+                }*/
 
             } else {
                 MyApp.popMessageWithFinish("Alert!", o.optString("message"), SplashActivity.this);
@@ -92,6 +98,15 @@ public class SplashActivity extends CustomActivity implements CustomActivity.Res
             }
 
 
+        }else if(callNumber==2){
+            if (MyApp.getStatus(AppConstant.IS_LOGIN)) {
+                startActivity(new Intent(getContext(), MainActivity.class));
+
+                finish();
+            } else {
+                 startActivity(new Intent(getContext(), SocialLoginActivity.class));
+                finish();
+            }
         }
 
     }
@@ -110,7 +125,6 @@ public class SplashActivity extends CustomActivity implements CustomActivity.Res
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
 
 
     private Context getContext() {

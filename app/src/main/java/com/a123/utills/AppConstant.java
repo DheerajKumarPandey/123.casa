@@ -15,4 +15,5 @@ public class AppConstant {
     public static final String LAT="";
     public static final String LOCATION="";
     public static final String LONG="";
+    public static final String PropertyType="";
 }

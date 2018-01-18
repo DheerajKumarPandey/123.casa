@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dim_160"
     android:id="@+id/rel_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dim_180"
     android:background="@color/white">
 
     <ImageView
@@ -12,15 +12,16 @@
         android:background="@null"
         android:scaleType="fitXY"
         android:src="@drawable/hotel" />
+
     <ImageButton
+        android:id="@+id/img_btn_fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:id="@+id/img_btn_fav"
         android:layout_marginLeft="@dimen/dim_75"
         android:layout_marginTop="@dimen/dim_3"
-        android:src="@drawable/ic_favorite_border"
-        />
+        android:background="@null"
+        android:src="@drawable/ic_favorite_border" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,10 +33,10 @@
         android:paddingTop="@dimen/dim_5">
 
         <TextView
+            android:id="@+id/tv_sr_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12345 MXN"
-            android:id="@+id/tv_sr_no"
             android:textColor="@color/black"
             android:textSize="@dimen/dim_16" />
 
@@ -62,13 +63,13 @@
                 android:background="#DB4645" />
 
             <TextView
+                android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dim_10"
                 android:layout_toRightOf="@+id/vetical_view"
                 android:text="Posted On : 12 Oct 2017"
                 android:textColor="@color/black"
-                android:id="@+id/tv_date"
                 android:textSize="@dimen/dim_16" />
         </RelativeLayout>
 
@@ -78,13 +79,13 @@
             android:background="#DB4645" />
 
         <TextView
+            android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dim_2"
             android:paddingTop="@dimen/dim_2"
             android:text="2 BHK Flat 123 Towers"
-            android:id="@+id/tv_description"
             android:textColor="@color/black"
             android:textSize="@dimen/dim_16" />
 
@@ -111,15 +112,13 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_appointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/gradient_red"
-
         android:padding="@dimen/dim_5"
-
-        android:id="@+id/tv_appointment"
         android:text="Immediate Appointment"
         android:textColor="@color/white" />
 

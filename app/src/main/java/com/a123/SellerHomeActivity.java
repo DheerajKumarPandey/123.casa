@@ -136,12 +136,16 @@ public class SellerHomeActivity extends CustomActivity implements FragmentDrawer
 
             menu_red.toggle(true);
         } else if (v.getId() == R.id.fab1) {
+            menu_red.close(true);
 
         } else if (v.getId() == R.id.fab2) {
+            menu_red.close(true);
             fab2.setVisibility(View.GONE);
         } else if (v.getId() == R.id.fab3) {
+            menu_red.close(true);
             fab2.setVisibility(View.VISIBLE);
         } else if (v.getId() == R.id.fab4) {
+            menu_red.close(true);
             setTheme(R.style.ActionSheetStyleiOS7);
             showActionSheet();
         }
@@ -176,7 +180,7 @@ public class SellerHomeActivity extends CustomActivity implements FragmentDrawer
     @Override
     public void onOtherButtonClick(ActionSheet actionSheet, int index) {
         if(index==1){
-            Toast.makeText(getContext(), "Listing Added Successfully", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(getContext(), AddPropertyActivity.class));
         }else if(index == 2){
             Toast.makeText(getContext(), "will direct to list Of property", Toast.LENGTH_SHORT).show();
         }

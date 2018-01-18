@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 
 import com.a123.ChangePasswordActivity;
+import com.a123.MapActivity;
 import com.a123.NotificationActivity;
 import com.a123.PropertyDetailActivity;
 import com.a123.R;
@@ -146,14 +147,14 @@ public class FragmentDrawer extends Fragment {
         nav_item_map_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), MapActivity.class));
             }
         });
 
         nav_item_view_listing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), MapActivity.class));
             }
         });
 

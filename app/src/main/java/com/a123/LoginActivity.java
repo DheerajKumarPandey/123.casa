@@ -103,7 +103,7 @@ public class LoginActivity extends CustomActivity implements CustomActivity.Resp
 
     private void userLogin() {
         RequestParams p = new RequestParams();
-        p.put("deviceToken", AppConstant.DEVICE_TOKEN);
+        p.put("deviceToken", MyApp.getSharedPrefString(AppConstant.DEVICE_TOKEN).toString());
         p.put("password", edt_password.getText().toString());
         p.put("email", edt_username.getText().toString());
 

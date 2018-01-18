@@ -36,4 +36,136 @@
         <item>Wallet</item>
         <item>Switch To Service Provider</item>
     </string-array>
+
+
+    <string name="property_prompt">Select Property Type</string>
+    <string-array name="property_type">
+        <item>Select Property Type</item>
+        <item>Casa</item>
+        <item>Terreno</item>
+        <item>Departamento</item>
+        <item>Bodega</item>
+        <item>Oficina Local comercial</item>
+
+    </string-array>
+    <string name="operation_prompt">Select Property Operation</string>
+    <string-array name="operation_type">
+        <item>Select Property Operation</item>
+        <item>Sale</item>
+        <item>Rent</item>
+
+
+    </string-array>
+    <string name="subtype_prompt">Select Property Variant</string>
+    <string-array name="sub_type">
+        <item>Select Property Variant</item>
+        <item>Terreno Comercial</item>
+        <item>Terreno Industrial</item>
+        <item>Terreno Habitacional</item>
+
+
+    </string-array>
+
+    <string name="equipment_prompt">Nothing Selected</string>
+    <string-array name="equipment">
+        <item>Select Property Variant</item>
+        <item>Terreno Comercial</item>
+        <item>Terreno Industrial</item>
+        <item>Terreno Habitacional</item>
+
+
+    </string-array>
+
+
+    <string name="type_to_search">Type to Search</string>
+
+    <string-array name="sports_array">
+        <item>Shuttle Badminton</item>
+        <item>Tennis</item>
+        <item>Table Tennis</item>
+        <item>Basket Ball</item>
+        <item>Foot Ball</item>
+        <item>Volley Ball</item>
+        <item>Hockey</item>
+        <item>Swimming</item>
+
+        <item>Shuttle Badminton 2</item>
+        <item>Tennis 2</item>
+        <item>Table Tennis 2</item>
+        <item>Basket Ball 2</item>
+        <item>Foot Ball 2</item>
+        <item>Volley Ball 2</item>
+        <item>Hockey 2</item>
+        <item>Swimming 2</item>
+
+        <item>Shuttle Badminton 3</item>
+        <item>Tennis 3</item>
+        <item>Table Tennis 3</item>
+        <item>Basket Ball 3</item>
+        <item>Foot Ball 3</item>
+        <item>Volley Ball 3</item>
+        <item>Hockey 3</item>
+        <item>Swimming 3</item>
+
+        <item>Shuttle Badminton 4</item>
+        <item>Tennis 4</item>
+        <item>Table Tennis 4</item>
+        <item>Basket Ball 4</item>
+        <item>Foot Ball 4</item>
+        <item>Volley Ball 4</item>
+        <item>Hockey 4</item>
+        <item>Swimming 4</item>
+
+        <item>Shuttle Badminton 5</item>
+        <item>Tennis 5</item>
+        <item>Table Tennis 5</item>
+        <item>Basket Ball 5</item>
+        <item>Foot Ball 5</item>
+        <item>Volley Ball 5</item>
+        <item>Hockey 5</item>
+        <item>Swimming 5</item>
+    </string-array>
+    <string-array name="muros_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+    <string-array name="pisos_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+    <string-array name="pinturas_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+    <string-array name="carpintería_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+    <string-array name="ventanería_y_elementos_térmicos_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+    <string-array name="detalles_de_construcción_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+    <string-array name="muebles_de_bano_array">
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+        <item>Adobe</item>
+        <item>Ladrillo</item>
+    </string-array>
+
 </resources>

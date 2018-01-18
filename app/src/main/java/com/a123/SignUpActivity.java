@@ -142,7 +142,7 @@ public class SignUpActivity extends CustomActivity implements CustomActivity.Res
         p.put("socialLoginType", "0");
         p.put("appVersion", "1.0");
         p.put("deviceType", "Android");
-        p.put("deviceToken", AppConstant.DEVICE_TOKEN);
+        p.put("deviceToken", MyApp.getSharedPrefString(AppConstant.DEVICE_TOKEN).toString());
         postCall(getContext(), AppConstant.BASE_URL + "SignUp", p, "Registering User", 1);
 
 

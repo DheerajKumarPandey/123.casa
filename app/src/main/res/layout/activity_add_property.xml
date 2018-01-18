@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context="com.a123.AddPropertyActivity">
+
+    <include layout="@layout/property_toolbar" />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/tv_btn_submit"
+    android:layout_below="@+id/property_toolbar">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dim_10">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_label_prop_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/dim_10"
+                android:text="Type of Property : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/dim_16"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dim_15"
+                android:layout_toRightOf="@+id/tv_label_prop_type"
+                android:background="@drawable/spinner_bg">
+
+                <Spinner
+                    android:id="@+id/property_type_spiner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/black"
+                    android:entries="@array/property_type"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_5"
+                    android:prompt="@string/property_prompt" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rel_subtype"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dim_10">
+
+            <TextView
+                android:id="@+id/tv_label_sub_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_55"
+                android:text="Subtypes : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/dim_16"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dim_15"
+                android:layout_toRightOf="@+id/tv_label_sub_type"
+                android:background="@drawable/spinner_bg">
+
+                <Spinner
+                    android:id="@+id/sub_type_spiner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/black"
+                    android:entries="@array/sub_type"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_5"
+
+                    android:prompt="@string/subtype_prompt" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_10">
+
+            <TextView
+                android:id="@+id/tv_label_operation_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/dim_10"
+                android:text="Type of Operations : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/dim_16"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_label_operation_type"
+                android:background="@drawable/spinner_bg">
+
+                <Spinner
+                    android:id="@+id/operation_type_spiner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/black"
+                    android:entries="@array/operation_type"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_5"
+                    android:prompt="@string/operation_prompt" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_15"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edt_min_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="Min Price"
+                android:inputType="number"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_5"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" />
+
+            <EditText
+                android:id="@+id/edt_max_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="Max Price"
+                android:inputType="number"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_5"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_15"
+            android:text="Address"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dim_18"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_rect_bg"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dim_5"
+            android:paddingLeft="@dimen/dim_3"
+            android:paddingRight="@dimen/dim_3"
+            android:paddingTop="@dimen/dim_5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_street"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/grey_rect_edt_bg"
+                    android:hint="Street"
+                    android:paddingBottom="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_2"
+                    android:paddingRight="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_10"
+                    android:textSize="@dimen/dim_16" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2" />
+
+                <EditText
+                    android:id="@+id/edt_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/grey_rect_edt_bg"
+                    android:hint="Number"
+                    android:inputType="number"
+                    android:paddingBottom="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_2"
+                    android:paddingRight="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_10"
+                    android:textSize="@dimen/dim_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_appt_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/grey_rect_edt_bg"
+                    android:hint="Interior or Apt. Number"
+                    android:inputType="number"
+                    android:paddingBottom="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_2"
+                    android:paddingRight="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_10"
+                    android:textSize="@dimen/dim_16" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2" />
+
+                <EditText
+                    android:id="@+id/edt_area"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/grey_rect_edt_bg"
+                    android:hint="Area"
+
+                    android:paddingBottom="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_2"
+                    android:paddingRight="@dimen/dim_5"
+                    android:paddingTop="@dimen/dim_10"
+                    android:textSize="@dimen/dim_16" />
+            </LinearLayout>
+            <EditText
+                android:id="@+id/edt_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="City"
+                android:layout_marginTop="@dimen/dim_10"
+
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_2"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+            <EditText
+                android:id="@+id/edt_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_rect_edt_bg"
+                android:hint="Country"
+                android:layout_marginTop="@dimen/dim_10"
+
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_2"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_plantas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:hint="Plantas "
+            android:layout_marginTop="@dimen/dim_15"
+
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_2"
+            android:paddingRight="@dimen/dim_5"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+        <EditText
+            android:id="@+id/edt_recamaras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:hint="Recamaras  "
+            android:layout_marginTop="@dimen/dim_10"
+            android:inputType="number"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_2"
+            android:paddingRight="@dimen/dim_5"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_15"
+            android:text="Dettale recamaras : "
+            android:textColor="@color/black"
+            android:textSize="@dimen/dim_16" />
+
+        <EditText
+            android:id="@+id/edt_description"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_100"
+            android:background="@drawable/grey_rect_edt_bg"
+            android:gravity="left|top"
+            android:inputType="textMultiLine"
+            android:maxHeight="@dimen/dim_100"
+            android:maxLines="5"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_10"
+            android:textSize="@dimen/dim_16" />
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="@dimen/dim_10"
+    >
+    <CheckBox
+        android:id="@+id/chk_box_rec_en_plants_baja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_checkbox"
+        android:buttonTint="@color/black"
+        android:padding="@dimen/dim_10"
+        android:layout_centerVertical="true"
+        android:text="Rec. en plants baja"
+        android:textSize="@dimen/dim_16" />
+
+    <CheckBox
+        android:id="@+id/chk_box_walk_in_closet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Walk-in closet"
+        android:padding="@dimen/dim_10"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/chk_box_rec_en_plants_baja"
+        android:textSize="@dimen/dim_16" />
+</RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+    <TextView
+        android:id="@+id/tv_btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/sign_up_button"
+        android:gravity="center"
+        android:padding="@dimen/dim_10"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dim_18"
+        android:textStyle="bold" />
+</RelativeLayout>

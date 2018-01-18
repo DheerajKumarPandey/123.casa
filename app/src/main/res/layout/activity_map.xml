@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.a123.MapActivity">
+
+    <include layout="@layout/new_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DEE4F1">
+
+        <!-- <android.support.v7.widget.RecyclerView
+             android:id="@+id/recycler_list_view"
+             android:layout_width="match_parent"
+             android:background="@color/white"
+             android:layout_height="match_parent"
+             android:layout_above="@+id/bottom_lnr"
+             android:layout_below="@+id/news_section" />-->
+
+        <FrameLayout
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.a123.MapActivity" />
+
+            <ImageView
+                android:id="@+id/_map_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/location" />
+
+        </FrameLayout>
+
+
+        <!-- <RelativeLayout
+             android:id="@+id/rl_top"
+             android:layout_width="match_parent"
+             android:layout_height="?attr/actionBarSize"
+             android:background="#DB4646"
+             android:orientation="horizontal"
+             android:padding="@dimen/dim_10">
+
+             <ImageButton
+                 android:id="@+id/nav_drawer_btn"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_centerVertical="true"
+                 android:background="@null"
+                 android:src="@drawable/ic_menu" />
+
+             <ImageView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerInParent="true"
+                 android:background="@null"
+                 android:src="@drawable/logo_small" />
+
+             <ImageButton
+                 android:id="@+id/img_btn_notification"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerVertical="true"
+                 android:layout_marginRight="@dimen/dim_10"
+                 android:layout_toLeftOf="@+id/btn_search"
+                 android:background="?selectableItemBackground"
+                 android:padding="@dimen/dim_5"
+                 android:src="@drawable/ic_notifications_none" />
+
+             <ImageButton
+                 android:id="@+id/btn_search"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:layout_centerVertical="true"
+                 android:background="?selectableItemBackground"
+                 android:padding="@dimen/dim_5"
+                 android:src="@drawable/ic_map" />
+         </RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/rel_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_top"
+            android:background="#DEE4F1"
+            android:paddingBottom="@dimen/dim_5"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5">
+
+            <TextView
+                android:id="@+id/txt_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tv_white_rect_bg"
+                android:drawableRight="@drawable/ic_my_location"
+                android:gravity="center"
+                android:hint="Enter Location"
+                android:paddingBottom="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_5"
+                android:paddingRight="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_10"
+                android:textSize="@dimen/dim_16" />
+        </RelativeLayout>
+
+        <!-- <RelativeLayout
+             android:id="@+id/news_section"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/rel_location"
+             android:background="@color/white"
+             android:padding="@dimen/dim_5">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerInParent="true"
+                 android:gravity="center"
+                 android:text="&#45;&#45;&#45;&#45;News Section&#45;&#45;&#45;&#45;"
+                 android:textColor="@color/google_red"
+                 android:layout_alignParentRight="true"
+                 android:ellipsize="marquee"
+                 android:id="@+id/tv_news_txt"
+                 android:fadingEdge="horizontal"
+                 android:marqueeRepeatLimit="marquee_forever"
+                 android:scrollHorizontally="true"
+                 android:textSize="@dimen/dim_16"
+                 android:singleLine="true" />
+         </RelativeLayout>-->
+
+
+        <!--<LinearLayout
+            android:id="@+id/bottom_lnr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#DEE4F1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dim_5"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:paddingTop="@dimen/dim_5">
+
+                <TextView
+                    android:id="@+id/tv_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/dim_5"
+                    android:drawableRight="@drawable/ic_filter_list_black"
+                    android:text="Filter"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dim_16" />
+
+                <TextView
+                    android:id="@+id/tv_show_open_house"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/proceed_button"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="Show open house"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/dim_100"
+                android:layout_height="@dimen/dim_1"
+                android:background="@color/text_grey" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dim_10">
+
+                <TextView
+                    android:id="@+id/tv_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Show only appointments"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dim_16" />
+
+                <CheckBox
+                    android:id="@+id/chek_box_appointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_checkbox"
+                    android:buttonTint="@color/black"
+                    android:textSize="@dimen/dim_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/dim_150"
+                android:layout_height="@dimen/dim_1"
+                android:background="@color/text_grey" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dim_5"
+                android:paddingLeft="@dimen/dim_10">
+
+                <TextView
+                    android:id="@+id/tv_select_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/proceed_button"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="Select Type"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dim_10"
+                    android:layout_toRightOf="@+id/tv_select_type"
+                    android:text="Sale/Rent"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dim_16" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dim_10">
+
+                <TextView
+                    android:id="@+id/tv_select_subtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/proceed_button"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="Select SubTypes"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dim_10"
+                    android:layout_toRightOf="@+id/tv_select_subtype"
+                    android:text="Multiple selection options"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dim_16" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/dim_250"
+                android:layout_height="@dimen/dim_1"
+                android:layout_marginTop="@dimen/dim_5"
+                android:background="@color/text_grey" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10">
+
+                <TextView
+                    android:id="@+id/tv_help"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/dim_5"
+                    android:drawableRight="@drawable/ic_help_black"
+                    android:gravity="center"
+                    android:text="Help"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dim_16" />
+
+                <TextView
+                    android:id="@+id/tv_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:drawableRight="@drawable/ic_chat_bubble_black"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="Chat:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dim_16" />
+            </RelativeLayout>
+        </LinearLayout>-->
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
