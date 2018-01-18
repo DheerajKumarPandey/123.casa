@@ -100,9 +100,15 @@ public class SplashActivity extends CustomActivity implements CustomActivity.Res
 
         }else if(callNumber==2){
             if (MyApp.getStatus(AppConstant.IS_LOGIN)) {
-                startActivity(new Intent(getContext(), MainActivity.class));
+                if(MyApp.getApplication().readUser().get(0).getLoginType().equals("2")){
+                    startActivity(new Intent(getContext(), SellerHomeActivity.class));
 
-                finish();
+                    finish();
+                }else {
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    finish();
+                }
+
             } else {
                  startActivity(new Intent(getContext(), SocialLoginActivity.class));
                 finish();

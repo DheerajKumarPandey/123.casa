@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends CustomActivity implements CustomActivity.ResponseCallback {
     private EditText edt_username, edt_password;
@@ -127,9 +128,6 @@ public class LoginActivity extends CustomActivity implements CustomActivity.Resp
                 try {
                     List<User.Info> u = new Gson().fromJson(o.getJSONArray("info").toString(), listType);
                     MyApp.getApplication().writeUser(u);
-                    MyApp.setStatus(AppConstant.IS_LOGIN,true);
-                    finishAffinity();
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -138,8 +136,17 @@ public class LoginActivity extends CustomActivity implements CustomActivity.Resp
 
                 }
 
-                finish();
-                startActivity(new Intent(getContext(), MainActivity.class));
+                if(MyApp.getApplication().readUser().get(0).getLoginType().toString().equals("2")){
+                    startActivity(new Intent(getContext(), SellerHomeActivity.class));
+                    MyApp.setStatus(AppConstant.IS_LOGIN,true);
+                    finishAffinity();
+                }
+                else {
+
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    MyApp.setStatus(AppConstant.IS_LOGIN,true);
+                    finishAffinity();
+                }
 
             } else {
                 MyApp.popMessage("Error", o.optString("message"), getContext());

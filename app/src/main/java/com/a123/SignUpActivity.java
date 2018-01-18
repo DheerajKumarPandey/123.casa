@@ -262,18 +262,29 @@ public class SignUpActivity extends CustomActivity implements CustomActivity.Res
                 }.getType();
 
                 try {
-                    List<User.Info>u= new Gson().fromJson(o.getJSONArray("info").toString(),listType);
+                  /*  List<User.Info>u= new Gson().fromJson(o.getJSONArray("info").toString(),listType);
 //                    User ur =new Gson().fromJson(o.toString(),User.class);
                     MyApp.getApplication().writeUser(u);
-                   /* User u = new Gson().fromJson(o.getJSONObject("info").toString(), User.class);
+                   *//* User u = new Gson().fromJson(o.getJSONObject("info").toString(), User.class);
                     MyApp.getApplication().writeUser(u);*/
+
+                    List<User.Info> u = new Gson().fromJson(o.getJSONArray("info").toString(), listType);
+                    MyApp.getApplication().writeUser(u);
+                    MyApp.setStatus(AppConstant.IS_LOGIN,true);
+                    finishAffinity();
                 }catch (JSONException e){
                     e.printStackTrace();
                     MyApp.popMessage("Alert!","Parsing error.", getContext());
                 }catch (JsonSyntaxException ee){
 
                 }
-                startActivity(new Intent(getContext(), MainActivity.class));
+                if(loginType.equals("1")) {
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                }else if(loginType.equals("2")){
+                    startActivity(new Intent(getContext(), SellerHomeActivity.class));
+                }else {
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                }
             }else {
                 MyApp.popMessage("Error",o.optString("message"),getContext());
             }
