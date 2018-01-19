@@ -33,7 +33,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
     private LayoutInflater inflater;
     private ItemClickCallback itemclickcallback;
     private int count = 0;
-
+    private Integer Position;
     private boolean fav=false;
     private Context context;
     public interface ItemClickCallback {
@@ -132,9 +132,15 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
             tv_appointment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // ((MainActivity)context).immediateAppointment( getLayoutPosition());
+                    //((MainActivity)context).immediateAppointment( getLayoutPosition());
+                    Position = getLayoutPosition();
+                    Intent intent= new Intent(context, ImmediateAppointmentActivity.class);
+                    intent.putExtra("position", Position);
+                   //intent.putExtra("category","Current Supply Bills");
+                    context.startActivity(intent);
 
-                    context.startActivity(new Intent(context, ImmediateAppointmentActivity.class));
+
+                    //context.startActivity(new Intent(context, ImmediateAppointmentActivity.class));
                 }
             });
 

@@ -1,8 +1,20 @@
 package com.a123;
 
+import android.*;
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.Handler;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +34,18 @@ import com.a123.application.MyApp;
 import com.a123.custome.CustomActivity;
 import com.a123.model.User;
 import com.a123.utills.AppConstant;
+import com.a123.utills.LocationProvider;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -36,13 +60,19 @@ import java.util.List;
 
 import static java.sql.Types.NULL;
 
-public class SignUpActivity extends CustomActivity implements CustomActivity.ResponseCallback {
+public class SignUpActivity extends CustomActivity implements CustomActivity.ResponseCallback , LocationProvider.LocationCallback, LocationProvider.PermissionCallback{
     private TextView tv_signup_as, tv_btn_signup;
     private EditText edt_name, edt_email, edt_password, edt_dob, edt_phone, edt_address;
     private Toolbar toolbar;
     private ImageButton img_btn_show_hide;
     private boolean showPassword = false;
     private String loginType = "1";
+    private LocationManager locationManager;
+    private LocationProvider locationProvider;
+    private LatLng mCenterLatLong, sourceLocation;
+    private GoogleApiClient googleApiClient;
+    protected GoogleApiClient mGoogleApiClient;
+    private Double Lat, Long;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +88,111 @@ public class SignUpActivity extends CustomActivity implements CustomActivity.Res
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         mTitle.setText("");
         actionBar.setTitle("");
+        locationProvider = new LocationProvider(this, this, this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (sourceLocation == null) {
+                    locationProvider = new LocationProvider(SignUpActivity.this, SignUpActivity.this, SignUpActivity.this);
+                    locationProvider.connect();
+                }
+            }
+        }, (1000 * 10));
+        enableGPS();
+
+
+
         setupUiElement();
 
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        locationProvider.connect();
+    }
+
+    public void enableGPS() {
+
+        if (googleApiClient == null) {
+            googleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(LocationServices.API)
+                    .addOnConnectionFailedListener(
+                            new GoogleApiClient.OnConnectionFailedListener() {
+                                @Override
+                                public void onConnectionFailed(
+                                        ConnectionResult connectionResult) {
+
+                                    MyApp.showMassage(
+                                            SignUpActivity.this,
+                                            "Location error "
+                                                    + connectionResult
+                                                    .getErrorCode());
+                                }
+                            }).build();
+            googleApiClient.connect();
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setInterval(30 * 1000);
+            locationRequest.setFastestInterval(5 * 1000);
+            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                    .addLocationRequest(locationRequest);
+
+            builder.setAlwaysShow(true);
+
+            PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi
+                    .checkLocationSettings(googleApiClient, builder.build());
+            result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                @Override
+                public void onResult(LocationSettingsResult result) {
+                    final Status status = result.getStatus();
+                    switch (status.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            try {
+                                status.startResolutionForResult(SignUpActivity.this,
+                                        44);
+                            } catch (IntentSender.SendIntentException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                    }
+                }
+            });
+        } else {
+            LocationRequest locationRequest = LocationRequest.create();
+            // locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            locationRequest.setInterval(30 * 1000);
+            locationRequest.setFastestInterval(5 * 1000);
+            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                    .addLocationRequest(locationRequest);
+
+            builder.setAlwaysShow(true);
+
+            PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi
+                    .checkLocationSettings(googleApiClient, builder.build());
+            result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                @Override
+                public void onResult(LocationSettingsResult result) {
+                    final Status status = result.getStatus();
+                    switch (status.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            try {
+
+                                status.startResolutionForResult(SignUpActivity.this,
+                                        44);
+                            } catch (IntentSender.SendIntentException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                    }
+                }
+            });
+        }
+    }
+
+
+
 
     private void setupUiElement() {
 
@@ -139,6 +271,8 @@ public class SignUpActivity extends CustomActivity implements CustomActivity.Res
         p.put("PhoneNo", edt_phone.getText().toString());
         p.put("Address", edt_address.getText().toString());
         p.put("loginType", loginType);
+        p.put("lat", Lat);
+        p.put("long", Long);
         p.put("socialLoginType", "0");
         p.put("appVersion", "1.0");
         p.put("deviceType", "Android");
@@ -300,5 +434,29 @@ public class SignUpActivity extends CustomActivity implements CustomActivity.Res
     @Override
     public void onErrorReceived(String error) {
         MyApp.popMessage("Error", error, getContext());
+    }
+
+    @Override
+    public void handleNewLocation(Location location) {
+        Lat = location.getLatitude();
+        Long = location.getLongitude();
+    }
+
+    @Override
+    public void handleManualPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1010);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationProvider = new LocationProvider(this, this, this);
+        locationProvider.connect();
+    }
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

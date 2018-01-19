@@ -4,30 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/login"
+    android:orientation="vertical"
     tools:context="com.a123.ImmediateAppointmentActivity">
+
     <include layout="@layout/new_toolbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/dim_60"
         android:paddingBottom="@dimen/dim_20"
         android:paddingLeft="@dimen/dim_15"
-        android:paddingRight="@dimen/dim_15">
-        <EditText
-            android:id="@+id/edt_time_date"
+        android:paddingRight="@dimen/dim_15"
+        android:paddingTop="@dimen/dim_60">
+
+        <TextView
+            android:id="@+id/tv_time_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/grey_rect_edt_bg"
-            android:hint=" Appointment Time &amp; Date"
-            android:inputType="datetime"
+            android:gravity="center"
             android:paddingBottom="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
             android:paddingTop="@dimen/dim_10"
+            android:text="Appointment Time &amp; Date"
+            android:textColor="@color/black"
             android:textSize="@dimen/dim_16" />
+
         <EditText
             android:id="@+id/edt_contact_no"
             android:layout_width="match_parent"
@@ -41,6 +46,7 @@
             android:paddingRight="@dimen/dim_10"
             android:paddingTop="@dimen/dim_10"
             android:textSize="@dimen/dim_16" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,14 +69,15 @@
             android:paddingRight="@dimen/dim_10"
             android:paddingTop="@dimen/dim_10"
             android:textSize="@dimen/dim_16" />
+
         <TextView
+            android:id="@+id/tv_submit_appointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dim_55"
             android:background="@drawable/proceed_button"
             android:gravity="center"
-            android:id="@+id/tv_submit_appointment"
             android:paddingBottom="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_15"
             android:paddingRight="@dimen/dim_15"
