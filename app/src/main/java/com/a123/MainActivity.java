@@ -3,6 +3,7 @@ package com.a123;
 import android.*;
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -47,6 +48,7 @@ import com.a123.application.MyApp;
 import com.a123.application.SingleInstance;
 import com.a123.custome.CustomActivity;
 import com.a123.fragment.FragmentDrawer;
+import com.a123.model.User;
 import com.a123.model.UserList;
 import com.a123.utills.AppConstant;
 import com.a123.utills.LocationProvider;
@@ -73,11 +75,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -386,7 +393,8 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         } else if (v == tv_select_subtype) {
             subtypeSelection();
         } else if (v == img_btn_notification) {
-            startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+            //startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+            myAppointment();
         } else if (v == tv_help) {
 
             startActivity(new Intent(MainActivity.this, HelpActivity.class));
@@ -402,6 +410,19 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
             MainActivity.this.startActivityForResult(intent, 122);
         }
     }
+
+
+    private void myAppointment(){
+        RequestParams p = new RequestParams();
+        p.put("person_id", MyApp.getApplication().readUser().get(0).getId());
+        p.put("email", MyApp.getApplication().readUser().get(0).getEmail());
+        p.put("socialLoginType",MyApp.getApplication().readUser().get(0).getSocialLoginType());
+        p.put("appVersion", MyApp.getApplication().readUser().get(0).getAppVersion());
+        p.put("deviceType", MyApp.getApplication().readUser().get(0).getDeviceType());
+
+        postCall(getContext(), AppConstant.BASE_URL + "myAppointment", p, "Collecting Info...", 1);
+    }
+
 
 
     @Override
@@ -467,7 +488,7 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
         }
 
     }*/
-
+private Context getContext(){return MainActivity.this;}
     private void typeSelection() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -832,7 +853,39 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
     @Override
     public void onJsonObjectResponseReceived(JSONObject o, int callNumber) {
 
+        if (callNumber == 1) {
 
+            if (o.optString("status").equals("1")) {
+               /* Type listType = new TypeToken<List<User.Info>>() {
+                }.getType();
+
+                try {
+                    List<User.Info> u = new Gson().fromJson(o.getJSONArray("info").toString(), listType);
+                    MyApp.getApplication().writeUser(u);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    MyApp.popMessage("Alert!", "Parsing error.", getContext());
+                } catch (JsonSyntaxException ee) {
+
+                }
+
+                if (MyApp.getApplication().readUser().get(0).getLoginType().toString().equals("2")) {
+                    startActivity(new Intent(getContext(), SellerHomeActivity.class));
+                    MyApp.setStatus(AppConstant.IS_LOGIN, true);
+                    finishAffinity();
+                } else {
+
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    MyApp.setStatus(AppConstant.IS_LOGIN, true);
+                    finishAffinity();
+                }*/
+               startActivity(new Intent(getContext(), NotificationActivity.class));
+
+            } else {
+                MyApp.popMessage("Error", o.optString("message"), getContext());
+            }
+        }
     }
 
     @Override

@@ -114,7 +114,8 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".TerrenoActivity" />
         <activity android:name=".BodegaActivity" />
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MapActivity" />
+        <activity android:name=".MyAppointmentUserActivity"></activity>
     </application>
 
 </manifest>

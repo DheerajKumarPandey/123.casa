@@ -27,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 
+import com.a123.model.AppointmentData;
 import com.a123.model.Country;
 import com.a123.model.User;
 import com.a123.model.UserList;
@@ -719,4 +720,60 @@ public class MyApp extends Application {
         }
         return user;
     }
+
+
+    public void writeAppointmentData(List<AppointmentData.Info> appointmentData) {
+        try {
+            String path = "/data/data/" + ctx.getPackageName()
+                    + "/AppointmentDataInfo.ser";
+            File f = new File(path);
+            if (f.exists()) {
+                f.delete();
+            }
+            FileOutputStream fileOut = new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(appointmentData);
+            out.close();
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+// bolo kuch dikkat ho to ab kar k dekhta hun
+
+    public List<AppointmentData.Info> readAppointmentData() {
+        String path = "/data/data/" + ctx.getPackageName() + "/AppointmentDataInfo.ser";
+        File f = new File(path);
+        List<AppointmentData.Info> appointmentData = new ArrayList<>();
+        if (f.exists()) {
+            try {
+                System.gc();
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                appointmentData = ( List<AppointmentData.Info>) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (StreamCorruptedException e) {
+                e.printStackTrace();
+            } catch (OptionalDataException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return appointmentData;
+    }
+
+
+
+
+
+
 }
