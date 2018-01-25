@@ -48,7 +48,9 @@ import com.a123.application.MyApp;
 import com.a123.application.SingleInstance;
 import com.a123.custome.CustomActivity;
 import com.a123.fragment.FragmentDrawer;
+import com.a123.model.AppointmentData;
 import com.a123.model.User;
+import com.a123.model.UserAppointmentData;
 import com.a123.model.UserList;
 import com.a123.utills.AppConstant;
 import com.a123.utills.LocationProvider;
@@ -854,39 +856,27 @@ private Context getContext(){return MainActivity.this;}
     public void onJsonObjectResponseReceived(JSONObject o, int callNumber) {
 
         if (callNumber == 1) {
-
             if (o.optString("status").equals("1")) {
-               /* Type listType = new TypeToken<List<User.Info>>() {
+                Type listType = new TypeToken<List<UserAppointmentData.Info>>() {
                 }.getType();
 
                 try {
-                    List<User.Info> u = new Gson().fromJson(o.getJSONArray("info").toString(), listType);
-                    MyApp.getApplication().writeUser(u);
+                    List<UserAppointmentData.Info> u = new Gson().fromJson(o.getJSONArray("info").toString(), listType);
+
+                    MyApp.getApplication().writeUserAppointmentData(u);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    MyApp.popMessage("Alert!", "Parsing error.", getContext());
-                } catch (JsonSyntaxException ee) {
-
                 }
 
-                if (MyApp.getApplication().readUser().get(0).getLoginType().toString().equals("2")) {
-                    startActivity(new Intent(getContext(), SellerHomeActivity.class));
-                    MyApp.setStatus(AppConstant.IS_LOGIN, true);
-                    finishAffinity();
-                } else {
-
-                    startActivity(new Intent(getContext(), MainActivity.class));
-                    MyApp.setStatus(AppConstant.IS_LOGIN, true);
-                    finishAffinity();
-                }*/
-               startActivity(new Intent(getContext(), NotificationActivity.class));
+                startActivity(new Intent(getContext(), MyAppointmentActivity.class));
 
             } else {
                 MyApp.popMessage("Error", o.optString("message"), getContext());
             }
         }
-    }
+        }
+
 
     @Override
     public void onJsonArrayResponseReceived(JSONArray a, int callNumber) {

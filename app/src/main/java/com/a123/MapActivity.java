@@ -87,7 +87,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     private LatLng sourceLocation = null;
     private LocationProvider locationProvider;
     private Toolbar toolbar;
-    private TextView txt_location;
+   // private TextView txt_location;
 
 
     //  private List<UserList.Info> userlist = new ArrayList<>();
@@ -110,6 +110,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setResponseListener(this);
+        Toast.makeText(this, "Location :"+MyApp.getSharedPrefString(AppConstant.USERLAT), Toast.LENGTH_SHORT).show();
         //txt_location
         toolbar = (Toolbar) findViewById(R.id.new_toolbar);
         setSupportActionBar(toolbar);
@@ -323,14 +324,14 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     @SuppressWarnings("StatementWithEmptyBody")
 
 
-    public void onClick(View v) {
+  /*  public void onClick(View v) {
         super.onClick(v);
         if (v == txt_location) {
             Intent intent = new Intent(MapActivity.this, SearchActivity.class);
             intent.putExtra(AppConstant.EXTRA_1, "Enter your location");
             MapActivity.this.startActivityForResult(intent, 122);
         }
-    }
+    }*/
 
 
     @Override
@@ -343,7 +344,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
                     place = SingleInstance.getInstance().getSelectedPlace();
                     this.sourceLocation = place.getLatLng();
                     Log.i("", "Place: " + place.getName());
-                    txt_location.setText(place.getAddress().toString().replace("\n", " "));
+                   // txt_location.setText(place.getAddress().toString().replace("\n", " "));
                     this.mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().target(place.getLatLng()).zoom(15.5f).tilt(0.0f).build()));
                     return;
                 } else if (resultCode != 2) {
@@ -360,15 +361,15 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     private void setupUiElements() {
 
 
-        txt_location = (TextView) findViewById(R.id.txt_location);
+       // txt_location = (TextView) findViewById(R.id.txt_location);
 
 
-        setClick(R.id.txt_location);
+       // setClick(R.id.txt_location);
 
-        mMap.addMarker(new MarkerOptions()
+        /*mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(28.5244, 77.1855))
                 .title("Qutub Metro")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.source_marker)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.source_marker)));*/
 
     }
 
@@ -435,6 +436,10 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
 
         View mapView = mapFragment.getView();
         View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(28.5244, 77.1855))
+                .title("Qutub Metro")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.source_marker)));
 
         if (mapView != null &&
                 mapView.findViewById(Integer.parseInt("1")) != null) {
@@ -540,7 +545,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
                     } catch (Exception ignored) {
                     }
                 }
-                txt_location.setText(strAdd.replace("\n", " "));
+              //  txt_location.setText(strAdd.replace("\n", " "));
                 if (strAdd.isEmpty()) {
                     String alterAdd = "";
                     alterAdd = addresses.get(0).getSubLocality();
@@ -550,7 +555,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
                             alterAdd = strAdd.replace("\n", " ");
                         }
                     }
-                    txt_location.setText(alterAdd);
+                 //   txt_location.setText(alterAdd);
                 }
 
                 Log.w("address", "" + strReturnedAddress.toString());

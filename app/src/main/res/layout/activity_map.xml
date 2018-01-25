@@ -46,53 +46,7 @@
         </FrameLayout>
 
 
-        <!-- <RelativeLayout
-             android:id="@+id/rl_top"
-             android:layout_width="match_parent"
-             android:layout_height="?attr/actionBarSize"
-             android:background="#DB4646"
-             android:orientation="horizontal"
-             android:padding="@dimen/dim_10">
-
-             <ImageButton
-                 android:id="@+id/nav_drawer_btn"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentLeft="true"
-                 android:layout_centerVertical="true"
-                 android:background="@null"
-                 android:src="@drawable/ic_menu" />
-
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_centerInParent="true"
-                 android:background="@null"
-                 android:src="@drawable/logo_small" />
-
-             <ImageButton
-                 android:id="@+id/img_btn_notification"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_centerVertical="true"
-                 android:layout_marginRight="@dimen/dim_10"
-                 android:layout_toLeftOf="@+id/btn_search"
-                 android:background="?selectableItemBackground"
-                 android:padding="@dimen/dim_5"
-                 android:src="@drawable/ic_notifications_none" />
-
-             <ImageButton
-                 android:id="@+id/btn_search"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentRight="true"
-                 android:layout_centerVertical="true"
-                 android:background="?selectableItemBackground"
-                 android:padding="@dimen/dim_5"
-                 android:src="@drawable/ic_map" />
-         </RelativeLayout>-->
-
-        <RelativeLayout
+        <!--<RelativeLayout
             android:id="@+id/rel_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +69,7 @@
                 android:paddingRight="@dimen/dim_5"
                 android:paddingTop="@dimen/dim_10"
                 android:textSize="@dimen/dim_16" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <!-- <RelativeLayout
              android:id="@+id/news_section"

@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.a123.model.AppointmentData;
 import com.a123.model.Country;
 import com.a123.model.User;
+import com.a123.model.UserAppointmentData;
 import com.a123.model.UserList;
 
 import java.io.File;
@@ -773,7 +774,57 @@ public class MyApp extends Application {
 
 
 
+//////////////////////////////////////////////////////Client Appoitnment Data////
 
+
+    public void writeUserAppointmentData(List<UserAppointmentData.Info> userAppointmentData) {
+        try {
+            String path = "/data/data/" + ctx.getPackageName()
+                    + "/UserAppointmentData.ser";
+            File f = new File(path);
+            if (f.exists()) {
+                f.delete();
+            }
+            FileOutputStream fileOut = new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(userAppointmentData);
+            out.close();
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+// bolo kuch dikkat ho to ab kar k dekhta hun
+
+    public List<UserAppointmentData.Info> readUserAppointmentData() {
+        String path = "/data/data/" + ctx.getPackageName() + "/UserAppointmentData.ser";
+        File f = new File(path);
+        List<UserAppointmentData.Info> userAppointmentData = new ArrayList<>();
+        if (f.exists()) {
+            try {
+                System.gc();
+                FileInputStream fileIn = new FileInputStream(path);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                userAppointmentData = ( List<UserAppointmentData.Info>) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (StreamCorruptedException e) {
+                e.printStackTrace();
+            } catch (OptionalDataException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return userAppointmentData;
+    }
 
 
 }

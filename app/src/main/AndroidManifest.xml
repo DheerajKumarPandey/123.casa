@@ -115,7 +115,8 @@
         <activity android:name=".TerrenoActivity" />
         <activity android:name=".BodegaActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".MyAppointmentUserActivity"></activity>
+        <activity android:name=".MyAppointmentUserActivity" />
+        <activity android:name=".MyAppointmentActivity"></activity>
     </application>
 
 </manifest>
