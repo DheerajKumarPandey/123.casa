@@ -427,6 +427,19 @@ public class MainActivity extends CustomActivity implements FragmentDrawer.Fragm
 
 
 
+
+    public void likeProperty(int position){
+        RequestParams p = new RequestParams();
+        p.put("client_id", MyApp.getApplication().readUser().get(0).getId());
+        p.put("property_id", MyApp.getApplication().readUserList().get(position).getId());
+        p.put("like", "1");
+        p.put("socialLoginType",MyApp.getApplication().readUser().get(0).getSocialLoginType());
+        p.put("appVersion", MyApp.getApplication().readUser().get(0).getAppVersion());
+        p.put("deviceType", MyApp.getApplication().readUser().get(0).getDeviceType());
+
+        postCall(getContext(), AppConstant.BASE_URL + "likeProperty", p, "Liking...", 2);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -870,6 +883,14 @@ private Context getContext(){return MainActivity.this;}
                 }
 
                 startActivity(new Intent(getContext(), MyAppointmentActivity.class));
+
+            } else {
+                MyApp.popMessage("Error", o.optString("message"), getContext());
+            }
+        }else if(callNumber == 2){
+            if (o.optString("status").equals("1")) {
+
+                MyApp.popMessage("Successful", o.optString("message"), getContext());
 
             } else {
                 MyApp.popMessage("Error", o.optString("message"), getContext());

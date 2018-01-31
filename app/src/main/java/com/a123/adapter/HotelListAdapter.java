@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.a123.ImmediateAppointmentActivity;
 import com.a123.MainActivity;
+import com.a123.MyAppointmentUserActivity;
 import com.a123.PropertyDetailActivity;
 import com.a123.R;
 import com.a123.model.UserList;
@@ -121,10 +122,13 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.Data
                     if(fav==true){
                         img_btn_fav.setImageResource(R.drawable.ic_favorite_border);
                         fav= false;
+
+
                     }
                     else {
                         img_btn_fav.setImageResource(R.drawable.ic_favorite);
                         fav=true;
+                        ((MainActivity)context).likeProperty( getLayoutPosition());
                     }
 
                 }

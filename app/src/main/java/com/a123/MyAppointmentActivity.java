@@ -64,12 +64,12 @@ public class MyAppointmentActivity extends CustomActivity implements CustomActiv
         RequestParams p = new RequestParams();
         p.put("person_id", MyApp.getApplication().readUser().get(0).getId());
         p.put("appointment_id", MyApp.getApplication().readUserAppointmentData().get(position).getAppoitment().getId());
-        p.put("email",  MyApp.getApplication().readUser().get(0).getEmail());
+        p.put("email", MyApp.getApplication().readUser().get(0).getEmail());
         p.put("lat", MyApp.getApplication().readUser().get(0).getLat());
         p.put("long", MyApp.getApplication().readUser().get(0).getLng());
         p.put("socialLoginType", MyApp.getApplication().readUser().get(0).getSocialLoginType());
         p.put("appVersion", MyApp.getApplication().readUser().get(0).getAppVersion());
-        p.put("deviceType",MyApp.getApplication().readUser().get(0).getDeviceType());
+        p.put("deviceType", MyApp.getApplication().readUser().get(0).getDeviceType());
         postCall(getContext(), AppConstant.BASE_URL + "knowMyClientPosition", p, "Collecting Info...", 1);
 
     }
@@ -85,16 +85,19 @@ public class MyAppointmentActivity extends CustomActivity implements CustomActiv
 
 
                 try {
-                    MyApp.setSharedPrefString(AppConstant.USERLAT,""+o.getJSONObject("info").getString("lat"));
-                    MyApp.setSharedPrefString(AppConstant.USERLAT,""+o.getJSONObject("info").getString("long"));
+                    MyApp.setSharedPrefString(AppConstant.USERLATITUDE, o.getJSONObject("info").getString("lat"));
+                    MyApp.setSharedPrefString(AppConstant.USERLONGITUDE, o.getJSONObject("info").getString("long"));
+                    MyApp.setSharedPrefString(AppConstant.USERNAME, o.getJSONObject("info").getString("name"));
+                    MyApp.setSharedPrefString(AppConstant.DISTANCE, o.getJSONObject("ETA").getString("distance"));
+                    MyApp.setSharedPrefString(AppConstant.ETA, o.getJSONObject("ETA").getString("time"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 startActivity(new Intent(getContext(), MapActivity.class));
-            }else {
-                MyApp.popMessage("Error",o.optString("message"),getContext());
+            } else {
+                MyApp.popMessage("Error", o.optString("message"), getContext());
             }
         }
     }
