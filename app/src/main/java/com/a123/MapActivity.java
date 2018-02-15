@@ -2,6 +2,7 @@ package com.a123;
 
 import android.*;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -39,8 +40,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.a123.adapter.DummyHotelData;
-import com.a123.adapter.HotelListAdapter;
+
 import com.a123.application.MyApp;
 import com.a123.application.SingleInstance;
 import com.a123.custome.CustomActivity;
@@ -70,10 +70,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -86,9 +89,10 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     private GoogleApiClient googleApiClient;
     private LatLng sourceLocation = null;
     private LocationProvider locationProvider;
+    private List<Polyline> polylinePaths = new ArrayList<>();
     private Toolbar toolbar;
-   // private TextView txt_location;
-
+    // private TextView txt_location;
+    private TextView tv_agent_name, tv_distance, tv_eta;
 
     //  private List<UserList.Info> userlist = new ArrayList<>();
     private FrameLayout map_view;
@@ -110,7 +114,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setResponseListener(this);
-        Toast.makeText(this, "Location :"+MyApp.getSharedPrefString(AppConstant.USERLAT), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Location :" + MyApp.getSharedPrefString(AppConstant.USERLAT), Toast.LENGTH_SHORT).show();
         //txt_location
         toolbar = (Toolbar) findViewById(R.id.new_toolbar);
         setSupportActionBar(toolbar);
@@ -120,7 +124,6 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
         map_view = (FrameLayout) findViewById(R.id.map_view);
-
 
 
         setupUiElements();
@@ -140,10 +143,6 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
             }
         }, (1000 * 10));
 
-    /*    mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(28.5244, 77.1855))
-                .title("Qutub Metro")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.source_marker)));*/
 
     }
 
@@ -344,7 +343,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
                     place = SingleInstance.getInstance().getSelectedPlace();
                     this.sourceLocation = place.getLatLng();
                     Log.i("", "Place: " + place.getName());
-                   // txt_location.setText(place.getAddress().toString().replace("\n", " "));
+
                     this.mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().target(place.getLatLng()).zoom(15.5f).tilt(0.0f).build()));
                     return;
                 } else if (resultCode != 2) {
@@ -361,16 +360,13 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     private void setupUiElements() {
 
 
-       // txt_location = (TextView) findViewById(R.id.txt_location);
+        tv_agent_name = (TextView) findViewById(R.id.tv_agent_name);
+        tv_distance = (TextView) findViewById(R.id.tv_distance);
+        tv_eta = (TextView) findViewById(R.id.tv_eta);
 
-
-       // setClick(R.id.txt_location);
-
-        /*mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(28.5244, 77.1855))
-                .title("Qutub Metro")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.source_marker)));*/
-
+        tv_agent_name.setText("Agent Name : "+MyApp.getSharedPrefString(AppConstant.USERNAME));
+        tv_distance.setText("Distance : "+MyApp.getSharedPrefString(AppConstant.DISTANCE));
+        tv_eta.setText("ETA : "+MyApp.getSharedPrefString(AppConstant.ETA));
     }
 
 
@@ -433,13 +429,26 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         this.mMap.setOnCameraIdleListener(this);
-
+        // LatLng hcmus = new LatLng(10.762963, 106.682394);
         View mapView = mapFragment.getView();
         View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+
+
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(28.5244, 77.1855))
-                .title("Qutub Metro")
+                .position(new LatLng(Double.parseDouble(MyApp.getSharedPrefString(AppConstant.USERLATITUDE)), Double.parseDouble(MyApp.getSharedPrefString(AppConstant.USERLONGITUDE))))
+                .title(MyApp.getSharedPrefString(AppConstant.USERNAME))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.source_marker)));
+
+       /* PolylineOptions polylineOptions = new PolylineOptions().
+                geodesic(true).
+                color(Color.RED).
+                width(10);
+
+        for (int i = 0; i < route.points.size(); i++)
+            polylineOptions.add(route.points.get(i));
+
+        polylinePaths.add(mMap.addPolyline(polylineOptions));*/
+
 
         if (mapView != null &&
                 mapView.findViewById(Integer.parseInt("1")) != null) {
@@ -545,7 +554,8 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
                     } catch (Exception ignored) {
                     }
                 }
-              //  txt_location.setText(strAdd.replace("\n", " "));
+                //  txt_location.setText(strAdd.replace("\n", " "));
+
                 if (strAdd.isEmpty()) {
                     String alterAdd = "";
                     alterAdd = addresses.get(0).getSubLocality();
@@ -555,7 +565,7 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
                             alterAdd = strAdd.replace("\n", " ");
                         }
                     }
-                 //   txt_location.setText(alterAdd);
+
                 }
 
                 Log.w("address", "" + strReturnedAddress.toString());
@@ -597,6 +607,11 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     @Override
     public void handleNewLocation(Location location) {
         sourceLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+        mMap.addMarker(new MarkerOptions()
+                .position(sourceLocation)
+                .title(MyApp.getApplication().readUser().get(0).getName())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.location)));
         try {
             if (location != null && !isFirstSet) {
                 sourceLocation = new LatLng(location.getLatitude(), location.getLongitude());
@@ -682,4 +697,6 @@ public class MapActivity extends CustomActivity implements OnMapReadyCallback, G
     public void onErrorReceived(String error) {
 
     }
+
+
 }

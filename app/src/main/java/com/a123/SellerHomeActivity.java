@@ -76,6 +76,7 @@ public class SellerHomeActivity extends CustomActivity implements CustomActivity
         fragmentDrawer.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), null);
         fragmentDrawer.setDrawerListener(this);
         setupUiElements();
+        checkSubmitId();
     }
 
     private void setupUiElements() {
@@ -113,10 +114,10 @@ public class SellerHomeActivity extends CustomActivity implements CustomActivity
         fab3 = (FloatingActionButton) findViewById(R.id.fab3);
         fab4 = (FloatingActionButton) findViewById(R.id.fab4);
 
-        fab1.setEnabled(false);
+       /* fab1.setEnabled(false);
         menu_red.setClosedOnTouchOutside(true);
         menu_red.hideMenuButton(false);
-        menus.add(menu_red);
+        menus.add(menu_red);*/
 
         setTouchNClick(R.id.fab1);
         setTouchNClick(R.id.fab2);
@@ -160,6 +161,7 @@ public class SellerHomeActivity extends CustomActivity implements CustomActivity
         } else if (v.getId() == R.id.fab3) {
             menu_red.close(true);
             fab2.setVisibility(View.VISIBLE);
+            startActivity(new Intent(getContext(), PictureActivity.class));
         } else if (v.getId() == R.id.fab4) {
             menu_red.close(true);
             setTheme(R.style.ActionSheetStyleiOS7);
@@ -176,6 +178,17 @@ public class SellerHomeActivity extends CustomActivity implements CustomActivity
         p.put("deviceType", MyApp.getApplication().readUser().get(0).getDeviceType());
 
         postCall(getContext(), AppConstant.BASE_URL + "myAppointment", p, "Collecting Info...", 1);
+    }
+
+    private void checkSubmitId(){
+        RequestParams p = new RequestParams();
+        p.put("client_id", MyApp.getApplication().readUser().get(0).getId());
+        p.put("email", MyApp.getApplication().readUser().get(0).getEmail());
+        p.put("socialLoginType",MyApp.getApplication().readUser().get(0).getSocialLoginType());
+        p.put("appVersion", MyApp.getApplication().readUser().get(0).getAppVersion());
+        p.put("deviceType", MyApp.getApplication().readUser().get(0).getDeviceType());
+
+        postCall(getContext(), AppConstant.BASE_URL + "checkSubmitId", p, "Checking...", 2);
     }
 
     public void showActionSheet() {
@@ -233,6 +246,14 @@ public class SellerHomeActivity extends CustomActivity implements CustomActivity
                 startActivity(new Intent(getContext(), MyAppointmentUserActivity.class));
 
             } else {
+                MyApp.popMessage("Error", o.optString("message"), getContext());
+            }
+        }
+
+        if(callNumber == 2){
+            if(o.optString("status").equals("1")){
+                MyApp.popMessage("Successful", o.optString("message"), getContext());
+            }else {
                 MyApp.popMessage("Error", o.optString("message"), getContext());
             }
         }

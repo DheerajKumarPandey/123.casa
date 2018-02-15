@@ -17,7 +17,7 @@
         android:id="@+id/img_property_image"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/grey_rect_edt_bg"
-        android:src="@drawable/logo_name"
+
         />
     <TextView
         android:layout_width="@dimen/dim_180"

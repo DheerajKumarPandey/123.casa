@@ -53,6 +53,8 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:11.0.4'
     compile 'com.google.firebase:firebase-messaging:11.0.4'
     compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.8'
+
+
     testCompile 'junit:junit:4.12'
     implementation project(':library')
     implementation project(':library')

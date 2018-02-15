@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.a123.MyAppointmentActivity;
+import com.a123.MyAppointmentUserActivity;
 import com.a123.R;
 import com.a123.model.AppointmentData;
 import com.a123.model.Appoitment;
@@ -98,6 +100,13 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
             tv_description = (TextView) itemView.findViewById(R.id.tv_description);
 
             tv_btn_accept = (TextView) itemView.findViewById(R.id.tv_btn_accept);
+
+            tv_btn_accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MyAppointmentUserActivity)context).appointmentAccept( getLayoutPosition());
+                }
+            });
 
 
         }

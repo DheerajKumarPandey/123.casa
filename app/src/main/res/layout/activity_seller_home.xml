@@ -115,15 +115,16 @@
         android:paddingLeft="10dp"
         app:menu_labels_ellipsize="end"
         app:menu_labels_singleLine="true"
-        app:menu_backgroundColor="#ccffffff"
+        app:menu_labels_style="@style/MenuLabelsStyle"
+        app:menu_backgroundColor="#cc000000"
         >
-
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
             app:fab_size="mini"
+            app:fab_colorNormal="@color/white"
             app:fab_label="Share" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -132,6 +133,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
             app:fab_size="mini"
+            app:fab_colorNormal="@color/white"
             app:fab_label="Extra" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -140,18 +142,21 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
             app:fab_size="mini"
-            app:fab_label="Tools" />
+            app:fab_colorNormal="@color/white"
+            android:tint="@color/white"
+            app:fab_label="Submit ID" />
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_view_list"
             app:fab_size="mini"
+            app:fab_colorNormal="@color/white"
+            android:tint="@color/white"
             app:fab_label="Listing" />
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>
     </LinearLayout>
-
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
